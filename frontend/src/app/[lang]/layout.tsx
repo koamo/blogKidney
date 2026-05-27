@@ -24,15 +24,16 @@ export const metadata: Metadata = {
     default: 'KidneyLife - 만성 콩팥병 식이요법 및 건강관리 전문 블로그',
     template: '%s | KidneyLife',
   },
-  description: '만성 콩팥병(만성 신부전), 사구체신염 환우를 위한 저나트륨/저칼륨/저인/저단백 4대 식단 조절 가이드와 올바른 신장 건강 의학 정보를 제공하는 미디어 플랫폼입니다.',
+  // [네이버 80자 최적화]: 공백 포함 76자로 구성하여 서치어드바이저의 가독성 경고를 완벽하게 방어
+  description: '만성 콩팥병 환우를 위한 저염, 저칼륨, 저인, 저단백 4대 식단 조절 가이드와 신장 건강 의학 정보를 제공하는 블로그입니다.',
   keywords: ['콩팥병', '만성콩팥병식단', '신장건강', '식이요법', '저염식', '저칼륨', 'KidneyLife'],
   authors: [{ name: 'KidneyLife' }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kidney-life.vercel.app'), 
   
-  // [소셜 미디어 공유 최적화]: 신장 건강 및 만성 콩팥병 환우 SNS 카카오톡 및 페이스북 공유 SEO Open Graph 고도화
+  // [소셜 미디어 공유 최적화]: SNS 공유 SEO Open Graph 고도화 및 76자 설명 주입
   openGraph: {
     title: 'KidneyLife - 만성 콩팥병 식이요법 및 건강관리 전문 블로그',
-    description: '만성 콩팥병(만성 신부전), 사구체신염 환우를 위한 저나트륨/저칼륨/저인/저단백 4대 식단 조절 가이드와 올바른 신장 건강 의학 정보를 제공하는 미디어 플랫폼입니다.',
+    description: '만성 콩팥병 환우를 위한 저염, 저칼륨, 저인, 저단백 4대 식단 조절 가이드와 신장 건강 의학 정보를 제공하는 블로그입니다.',
     url: 'https://kidney-life.vercel.app',
     siteName: 'KidneyLife',
     locale: 'ko_KR',

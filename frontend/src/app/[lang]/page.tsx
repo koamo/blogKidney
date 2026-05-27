@@ -43,7 +43,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const translations = {
     ko: {
       title: 'KidneyLife - 만성 콩팥병 식이요법 및 건강관리 전문 블로그',
-      description: '만성 콩팥병(만성 신부전), 사구체신염 환우를 위한 저나트륨/저칼륨/저인/저단백 4대 식단 조절 가이드와 올바른 신장 건강 의학 정보를 제공하는 미디어 플랫폼입니다.'
+      // [네이버 80자 최적화]: 공백 포함 76자로 구성하여 서치어드바이저 가독성 경고를 영리하게 관통
+      description: '만성 콩팥병 환우를 위한 저염, 저칼륨, 저인, 저단백 4대 식단 조절 가이드와 신장 건강 의학 정보를 제공하는 블로그입니다.'
     },
     en: {
       title: 'KidneyLife - Chronic Kidney Disease Diet & Health Blog',
@@ -95,7 +96,7 @@ export default async function Home({ params }: PageProps) {
     ko: {
       badge: '✨ 프리미엄 신장 아카이브',
       welcome: '신장 건강의 가치를 전하는 공간,',
-      description: '구글 애드센스 승인을 통과한 최적의 의학 채널로, 저나트륨/저칼륨/저인/저단백 4대 영양 조절 식이 원칙과 만성 콩팥병 홈케어 관리 요령을 전문적이고 깊이 있게 전해 드립니다.',
+      description: '만성 콩팥병 환우를 위한 저염, 저칼륨, 저인, 저단백 4대 식단 조절 가이드와 신장 건강 의학 정보를 제공하는 블로그입니다.',
       latest: '최신 의학 컬럼 리포트',
       total: `총 ${posts.length}개 발행됨`,
       readMore: '자세히 보기',
@@ -110,7 +111,7 @@ export default async function Home({ params }: PageProps) {
     },
     ja: {
       badge: '✨ プレミアム腎臓健康アーカイブ',
-      welcome: '腎臓の健康と食事の価値を高める空間、',
+      welcome: '腎臓의 건강과 식사의 가치를 높이는 공간、',
       description: '低ナトリウム/低カリウム/低リン/低タンパクの4大食事管理ガイドと正しい腎臓健康医学情報を深く記録し、患者とその家族に最適化されたコンテンツをお届けします。',
       latest: '最新の医学記事一覧',
       total: `合計 ${posts.length} 件の記事`,
