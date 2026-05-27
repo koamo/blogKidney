@@ -1,0 +1,31 @@
+# Python 가상 환경 및 캐시 배제
+backend/venv/
+backend/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node.js 패키지 의존성 및 빌드 아웃풋 배제
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# 환경 변수 비밀키 및 설정 파일 배제 (보안 유지)
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# OS 및 기타 편집기 임시 파일 배제
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.project
+.pydevproject
