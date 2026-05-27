@@ -54,6 +54,8 @@ export const metadata: Metadata = {
   other: {
     // 구글 애드센스 승인 신청을 위한 계정 확인 고유 키 연동
     'google-adsense-account': 'ca-pub-7317136702675678', 
+    // 네이버 서치어드바이저 등록을 위한 사이트 소유권 확인 고유 키 연동
+    'naver-site-verification': '5454dce125cdb9bd0167f950be749faf191a9cf8',
   },
 };
 
