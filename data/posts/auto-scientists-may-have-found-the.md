@@ -1,6 +1,6 @@
 ---
 title: "[AI 추천] 과학자들은 만성 통증에 대한 뇌의 스위치를 발견했을 수도 있습니다"
-date: "2026-05-27"
+date: "2026-05-28"
 description: "글로벌 신장 채널 ScienceDaily Kidney Disease의 '과학자들은 만성 통증에 대한 뇌의 스위치를 발견했을 수도 있습니다' 자료에 대한 전문적 분석 리포트입니다."
 tags: ["신장건강", "사구체보호", "이식관리", "식단가이드"]
 thumbnail: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80"

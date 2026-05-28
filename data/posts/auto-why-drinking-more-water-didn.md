@@ -1,6 +1,6 @@
 ---
 title: "[AI 추천] 물을 많이 마셔도 신장결석이 예방되지 않는 이유"
-date: "2026-05-27"
+date: "2026-05-28"
 description: "글로벌 신장 채널 ScienceDaily Kidney Disease의 '물을 많이 마셔도 신장결석이 예방되지 않는 이유' 자료에 대한 전문적 분석 리포트입니다."
 tags: ["신장건강", "사구체보호", "이식관리", "식단가이드"]
 thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"

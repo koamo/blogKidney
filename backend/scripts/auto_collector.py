@@ -6,6 +6,7 @@ import urllib.parse
 import feedparser
 import requests
 import random
+import time
 from datetime import datetime
 from deep_translator import GoogleTranslator
 
@@ -338,22 +339,13 @@ def auto_collect_posts():
     print("[INFO] 신장 블로그 자동 포스팅 수집 수집기 기동!")
     os.makedirs(POSTS_DIR, exist_ok=True)
     
-    # 낡거나 기존에 자동으로 작성된 포스트들을 지우고 청소 작업을 선행합니다.
-    print("[INFO] 이전 수집된 자동 생성 마크다운 파일들의 폴더 정리 시작...")
-    removed_count = 0
-    if os.path.exists(POSTS_DIR):
-        for filename in os.listdir(POSTS_DIR):
-            if filename.startswith("auto-") and filename.endswith(".md"):
-                try:
-                    os.remove(os.path.join(POSTS_DIR, filename))
-                    removed_count += 1
-                except Exception as e:
-                    print(f"  [CLEAN WARNING] 파일 제거 중 에러: {filename}: {e}")
-    print(f"[INFO] 이전 자동 수집 마크다운 파일 {removed_count}개 일괄 정리 완료!")
+    # [중복 방지 및 누적 보존을 위해 이전 글 삭제 로직 폐기]
+    # 매일 기사를 쌓아 올리기 위해 예전 글을 강제 삭제하지 않고 영구히 보존합니다.
+    print("[INFO] 콘텐츠 영구 누적을 위해 이전 자동 파일 청소 단계를 배제합니다.")
     
     collected_count = 0
-    # 전체 피드 통합 최대 수집 제한 (과도한 포스팅 생성 및 API 남용 방지)
-    max_collect_limit = 6
+    # [하루 수집 제한 패치] 6건에서 3건으로 하향 조정하여 무분별한 수집 및 중복 노출을 전격 차단합니다.
+    max_collect_limit = 3
     
     for idx, feed_info in enumerate(feeds):
         if collected_count >= max_collect_limit:
@@ -395,9 +387,9 @@ def auto_collect_posts():
             
             output_filepath = os.path.join(POSTS_DIR, f"auto-{slug}.md")
             
-            # 이미 수집되어 마크다운 파일이 쌓인 경우 건너뜀
+            # [중복 수집 완전 배제] 이미 로컬 폴더에 존재하는 파일은 컴파일/번역하지 않고 완벽하게 건너뜀
             if os.path.exists(output_filepath):
-                print(f"  [SKIP] 이미 존재하는 마크다운 파일입니다: auto-{slug}.md")
+                print(f"  [SKIP] 이미 존재하여 영구 누적된 마크다운 파일입니다: auto-{slug}.md")
                 continue
                 
             print(f"  [COLLECT] 신규 기사 수집 작업 시작: {title[:25]}...")
@@ -410,6 +402,19 @@ def auto_collect_posts():
             
             # 뉴스 요약본 문장 끝맺음 청소
             cleaned_summary = clean_truncated_summary(summary_clean)
+            
+            # [개선 기능] 기사의 실제 발행일을 안전하게 추출합니다 (오늘 수집일 둔갑 오류 핫픽스)
+            post_date = datetime.now().strftime('%Y-%m-%d')
+            if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                try:
+                    post_date = time.strftime('%Y-%m-%d', entry.published_parsed)
+                except Exception:
+                    pass
+            elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                try:
+                    post_date = time.strftime('%Y-%m-%d', entry.updated_parsed)
+                except Exception:
+                    pass
             
             if api_key:
                 # [방식 A] Gemini 2.5 Flash를 이용한 100% 창작 포스트 생성 모드 구동
@@ -497,12 +502,12 @@ def auto_collect_posts():
                     print(f"  [ERROR] 무료 번역 처리 중 예외 발생: {e}")
                     continue
             
-            # YAML Frontmatter 헤더 자동 생성
+            # YAML Frontmatter 헤더 자동 생성 (진짜 기사 발행일 매핑 적용)
             final_title = f"[AI 추천] {translated_title if not api_key else title}"
             
             yaml_header = f"""---
 title: "{final_title}"
-date: "{datetime.now().strftime('%Y-%m-%d')}"
+date: "{post_date}"
 description: "{meta_description}"
 tags: ["신장건강", "사구체보호", "이식관리", "식단가이드"]
 thumbnail: "{thumbnail_url}"
