@@ -105,28 +105,73 @@ def clean_truncated_summary(summary):
     return summary_clean
 
 def extract_main_subject(title):
-    """신장 건강 뉴스 제목에서 핵심 키워드(예: 콩팥, Nephrology, Diet 등)를 추출합니다."""
+    """신장 건강 뉴스 제목에서 핵심 키워드를 안전하게 추출하고 조사를 제거하며 의학 용어로 치환합니다."""
     if not title:
         return "신장 건강"
     
+    # 1. 대괄호 안의 주제어 우선 추출
     brackets = re.findall(r'\[(.*?)\]', title)
     if brackets:
         return brackets[0]
         
+    # 2. 콜론 앞부분 주제어 추출
     if ":" in title:
         part = title.split(":", 1)[0].strip()
         if len(part) < 30:
-            return part
+            title = part
             
+    # 3. 영어 타이틀인 경우 (원문 제목 처리)
     words = re.findall(r'\b[A-Z][a-zA-Z0-9]*\b', title)
     if words:
-        filtered = [w for w in words if w.lower() not in ['a', 'an', 'the', 'is', 'are', 'in', 'on', 'at', 'by', 'for', 'with', 'new', 'how', 'why', 'what', 'study']]
+        filtered = [w for w in words if w.lower() not in [
+            'a', 'an', 'the', 'is', 'are', 'in', 'on', 'at', 'by', 'for', 'with', 
+            'new', 'how', 'why', 'what', 'study', 'research', 'patients', 'people',
+            'her', 'his', 'him', 'she', 'he', 'they', 'them', 'their', 'brother', 'sister', 'child', 'boy', 'girl'
+        ]]
         if filtered:
-            return " ".join(filtered[:2])
-            
+            english_subject = filtered[0]
+            eng_ko_map = {
+                "Kidney": "신장", "Renal": "신장", "Nephrology": "신장학", "Diet": "식단",
+                "Water": "수분 섭취", "Stone": "신장 결석", "Stones": "신장 결석",
+                "Fibrosis": "신장 섬유화", "HLHS": "소아 장기 이식", "Transplant": "장기 이식",
+                "Heart": "장기 이식", "Gut": "장내 미생물", "Guava": "구아바 주스",
+                "Drug": "신약 개발", "Diabetes": "당뇨병성 신증", "Hypertension": "고혈압"
+            }
+            if english_subject in eng_ko_map:
+                return eng_ko_map[english_subject]
+            if english_subject.lower() in ['her', 'his', 'brother', 'sister', 'child', 'boy', 'girl', 'year']:
+                return "소아 장기 이식"
+            return english_subject
+
+    # 4. 한국어 번역 타이틀인 경우 (번역된 제목 처리)
     korean_words = re.findall(r'\b[가-힣]{2,8}\b', title)
     if korean_words:
-        return korean_words[0]
+        candidate = korean_words[0]
+        
+        # 조사를 안전하게 제거하는 한글 형태소 꼬리 정제 로직
+        particles = [
+            '에서는', '으로부터', '에게서', '으로써', '으로서', '에서', '에게', '한테', 
+            '으로', '부터', '까지', '보다', '은', '는', '이', '가', '을', '를', '의', '에', 
+            '로', '과', '와', '도', '만', '나', '고', '며'
+        ]
+        for p in particles:
+            if candidate.endswith(p) and len(candidate) > len(p):
+                candidate = candidate[:-len(p)]
+                break
+                
+        # 인칭대명사나 부적절한 단어를 격이 높은 의학 전문 명사로 치환하는 사전
+        subject_replace_map = {
+            "소년": "소아 장기 이식", "소녀": "소아 장기 이식", "그녀": "소아 장기 이식", 
+            "그": "신장 보호", "그들": "신장 환우", "어린이": "소아 장기 이식", 
+            "아이": "소아 장기 이식", "환자": "신장 환우", "사람": "신장 보호", 
+            "연구": "신장 연구", "발표": "신장 소식", "보도": "신장 뉴스",
+            "형제": "장기 기증", "오빠": "장기 기증", "누나": "장기 기증", 
+            "언니": "장기 기증", "동생": "장기 기증", "가족": "가족 건강"
+        }
+        if candidate in subject_replace_map:
+            return subject_replace_map[candidate]
+            
+        return candidate
         
     return "만성 콩팥병 관리"
 
@@ -346,22 +391,12 @@ def auto_collect_posts():
     print("[INFO] 만성 콩팥병 및 신장 건강 전문 AI/지능형 자동 수집 파이프라인 가동!")
     os.makedirs(POSTS_DIR, exist_ok=True)
     
-    # [품질 보장 조치]: 수집 기동 시 기존의 단순/부실했던 자동 수집 기사들을 깨끗하게 일괄 삭제 청소합니다.
-    print("[INFO] 기존 부실 자동 수집 기사 일괄 소거 청소 개시...")
-    removed_count = 0
-    if os.path.exists(POSTS_DIR):
-        for filename in os.listdir(POSTS_DIR):
-            if filename.startswith("auto-") and filename.endswith(".md"):
-                try:
-                    os.remove(os.path.join(POSTS_DIR, filename))
-                    removed_count += 1
-                except Exception as e:
-                    print(f"  [CLEAN WARNING] 파일 삭제 실패 {filename}: {e}")
-    print(f"[INFO] 레거시 자동 수집 기사 총 {removed_count}개 일괄 삭제 완료!")
+    # [품질 보장 조치]: 콘텐츠 영구 누적을 위해 이전 자동 파일 청소 단계를 배제합니다.
+    print("[INFO] 콘텐츠 영구 누적을 위해 이전 자동 파일 청소 단계를 배제합니다.")
     
     collected_count = 0
-    # 피드당 2개씩 수집하여 최종 엄선된 고품질 기사 총 5~6개 수집 목표 달성
-    max_collect_limit = 6
+    # 하루 수집 상한 한도를 3건으로 하향 조정하여 중복 노출을 지능적으로 차단
+    max_collect_limit = 3
     
     for idx, feed_info in enumerate(feeds):
         if collected_count >= max_collect_limit:
