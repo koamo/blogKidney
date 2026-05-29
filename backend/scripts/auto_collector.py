@@ -105,125 +105,84 @@ def clean_truncated_summary(summary):
     return summary_clean
 
 def extract_main_subject(title):
-    """신장 건강 뉴스 제목에서 핵심 키워드를 인텔리전트하게 추출하고 불용어 및 조사를 강력히 차단 정화합니다."""
+    """신장 건강 뉴스 제목에서 핵심 키워드를 안전하게 추출하고 조사를 제거하며 의학 용어로 치환합니다."""
     if not title:
         return "신장 건강"
     
+    # 1. 대괄호/괄호 안의 주제어 정제
     title_clean = re.sub(r'\[.*?\]', '', title)
     title_clean = re.sub(r'\(.*?\)', '', title_clean)
     title_clean = title_clean.strip()
     
-    has_korean = any(ord('가') <= ord(char) <= ord('힣') for char in title_clean)
-    
-    # 의학/신장건강 분야의 오번역 및 비문 방지용 안전 맵핑 사전
-    KIDNEY_SUBJECT_MAPPING = {
-        '엄마': '생활 습관 개선 요법',
-        '엄마들': '생활 습관 개선 요법',
-        '초보': '자가 건강 관리 요령',
-        '초보자': '자가 건강 관리 요령',
-        '구아바': '철분 흡수 보완 가이드',
-        '구아바라고': '철분 흡수 보완 가이드',
-        '마약': '신장 보존 신약 기술',
-        '마약이': '신장 보존 신약 기술',
-        '있을 수': '사구체 보호 요법',
-        '있다': '신장 건강 솔루션',
-        '원하': '의료 정보 가이드',
-        '필요한': '핵심 신장 보존 수칙',
-        '소년': '가족 콩팥 건강 관리',
-        '숨겨진': '장-뇌 대사 조절 작용',
-        '더 많이 마셔': '수분 섭취 조절 요법',
-        '마셔도': '수분 섭취 조절 요법',
-        '마셔': '수분 섭취 조절 요법',
-        '마시기': '수분 섭취 조절 요법',
-        '있을 수 있다': '사구체 보호 요법',
-        '발견했을 수도': '대사 메커니즘 분석',
-        '발견했을': '대사 메커니즘 분석',
-        '필요했고': '장기 이식 의학'
-    }
-    
-    if has_korean:
-        # 한글 명사 파서 작동
-        bad_ko = [
-            '초보', '새로운', '소식', '연구', '보고', '과학자', '연구원', '엄마', '의해', '근본', '재편', 
-            '복귀', '있습', '있다', '통해', '위한', '대한', '있어', '하고', '하는', '에서', '으로',
-            '되고', '된다', '하며', '하는', '될까', '대해', '대하여', '이유', '실체', '반전', '결국',
-            '마약', '가능', '치명', '지방', '질환', '신약', '발견', '스위', '소년', '장기', '필요',
-            '할 수', '있을', '원하', '필요한', '어떻게', '왜', '무엇', '누가', '언제'
-        ]
+    if not title_clean:
+        return "신장 건강"
         
-        raw_words = title_clean.split()
-        for rw in raw_words:
-            # 조사 컷오프
-            rw_clean = re.sub(r'(들이|은|는|이|가|의|을|를|에|과|와|에서|으로|로|에게|된|한|할|고|며|적|적인|체로|로서|로써|부터|까지|라고|해)$', '', rw).strip()
+    # 2. 콜론 앞부분 주제어 추출
+    if ":" in title_clean:
+        part = title_clean.split(":", 1)[0].strip()
+        if len(part) < 30:
+            title_clean = part
             
-            rw_clean = re.sub(r'^["\'\[\(]+', '', rw_clean)
-            rw_clean = re.sub(r'["\'\]\)]+$', '', rw_clean).strip()
-            
-            if rw_clean in KIDNEY_SUBJECT_MAPPING:
-                return KIDNEY_SUBJECT_MAPPING[rw_clean]
-                
-            if len(rw_clean) > 1 and not any(x in rw_clean for x in bad_ko):
-                return rw_clean
-                
-        return "신장의학 혁신"
-        
-    else:
-        # 영문 단어 파서 작동
-        stop_words = [
-            'new', 'old', 'are', 'to', 'how', 'why', 'what', 'who', 'is', 'in', 'on', 'at', 
-            'by', 'for', 'with', 'study', 'report', 'researchers', 'scientists', 'about', 
-            'get', 'make', 'use', 'out', 'up', 'down', 'over', 'under', 'into', 'from', 
-            'of', 'and', 'the', 'a', 'an', 'review', 'will', 'let', 'ask', 'can', 'kidney',
-            'disease', 'diseases', 'health', 'nutrition', 'news'
-        ]
-        
-        words = re.findall(r'\b[A-Za-z0-9]+\b', title_clean)
-        filtered_words = []
-        for w in words:
-            w_lower = w.lower()
-            if w_lower not in stop_words and len(w) > 2:
-                filtered_words.append(w)
-                
-        if filtered_words:
-            subject_candidate = filtered_words[0]
-            if len(filtered_words) > 1 and filtered_words[1].lower() not in stop_words:
-                subject_candidate = " ".join(filtered_words[:2])
-                
-            translator = GoogleTranslator(source='en', target='ko')
-            try:
-                translated_candidate = translator.translate(subject_candidate).strip()
-                translated_candidate = re.sub(r'(들이|은|는|이|가|의|을|를|where|from|at|in|on|about|under|above|from|out|up|down|from|으로|로|에게|된|한|할|고|며|적|적인)$', '', translated_candidate).strip()
-                
-                if translated_candidate in KIDNEY_SUBJECT_MAPPING:
-                    return KIDNEY_SUBJECT_MAPPING[translated_candidate]
-                    
-                bad_korean_words = ['초보', '새로운', '소식', '연구', '보고', '과학자', '연구원', '신장', '질병', '건강', '환자', '의사', '보건']
-                if any(x in translated_candidate for x in bad_korean_words) or len(translated_candidate) <= 1:
-                    if len(filtered_words) > 1:
-                        second_candidate = filtered_words[-1]
-                        translated_second = translator.translate(second_candidate).strip()
-                        translated_second = re.sub(r'(들이|은|는|이|가|의|을|를|en|ja|ko|에|과|와|에서|으로|로|에게|된|한|할|고|며|적|적인)$', '', translated_second).strip()
-                        if translated_second in KIDNEY_SUBJECT_MAPPING:
-                            return KIDNEY_SUBJECT_MAPPING[translated_second]
-                        if not any(x in translated_second for x in bad_korean_words) and len(translated_second) > 1:
-                            return translated_second
-                    return "신장의학 혁신"
-                return translated_candidate
-            except Exception:
-                return "신장 케어 가이드"
-                
-    korean_words = re.findall(r'\b[가-힣]{2,8}\b', title_clean)
-    if korean_words:
-        bad_ko = ['초보', '새로운', '소식', '연구', '보고', '과학자', '신장', '환자', '의사', '보건']
-        for kw in korean_words:
-            kw_clean = re.sub(r'(들이|은|는|이|가|의|을|를|에|과|와|에서|으로|로|에게|된|한|할|고|며|적|적인)$', '', kw).strip()
-            if kw_clean in KIDNEY_SUBJECT_MAPPING:
-                return KIDNEY_SUBJECT_MAPPING[kw_clean]
-            if kw_clean not in bad_ko and len(kw_clean) > 1:
-                return kw_clean
-                
-    return "만성 콩팥병 관리"
+    # 3. 영어 타이틀인 경우 (원문 제목 처리)
+    words = re.findall(r'\b[A-Z][a-zA-Z0-9]*\b', title_clean)
+    if words:
+        filtered = [w for w in words if w.lower() not in [
+            'a', 'an', 'the', 'is', 'are', 'in', 'on', 'at', 'by', 'for', 'with', 
+            'new', 'how', 'why', 'what', 'study', 'research', 'patients', 'people',
+            'her', 'his', 'him', 'she', 'he', 'they', 'them', 'their', 'brother', 'sister', 'child', 'boy', 'girl'
+        ]]
+        if filtered:
+            english_subject = filtered[0]
+            eng_ko_map = {
+                "Kidney": "신장", "Renal": "신장", "Nephrology": "신장학", "Diet": "식단",
+                "Water": "수분 섭취", "Stone": "신장 결석", "Stones": "신장 결석",
+                "Fibrosis": "신장 섬유화", "HLHS": "소아 장기 이식", "Transplant": "장기 이식",
+                "Heart": "장기 이식", "Gut": "장내 미생물", "Guava": "구아바 주스",
+                "Drug": "신약 개발", "Diabetes": "당뇨병성 신증", "Hypertension": "고혈압",
+                "Urology": "비뇨기계 질환", "Dialysis": "신장 투석 치료"
+            }
+            if english_subject in eng_ko_map:
+                return eng_ko_map[english_subject]
+            if english_subject.lower() in ['her', 'his', 'brother', 'sister', 'child', 'boy', 'girl', 'year']:
+                return "소아 장기 이식"
+            return english_subject
 
+    # 4. 한국어 번역 타이틀인 경우 (번역된 제목 처리)
+    korean_words = re.findall(r'\b[가-힣0-9]{2,8}\b', title_clean)
+    if korean_words:
+        candidate = korean_words[0]
+        
+        # 조사를 안전하게 제거하는 한글 형태소 꼬리 정제 로직
+        particles = [
+            '에서는', '으로부터', '에게서', '으로써', '으로서', '에서', '에게', '한테', 
+            '으로', '부터', '까지', '보다', '은', '는', '이', '가', '을', '를', '의', '에', 
+            '로', '과', '와', '도', '만', '나', '고', '며'
+        ]
+        for p in particles:
+            if candidate.endswith(p) and len(candidate) > len(p):
+                candidate = candidate[:-len(p)]
+                break
+                
+        # 인칭대명사나 부적절한 단어를 격이 높은 의학 전문 명사로 치환하는 사전
+        subject_replace_map = {
+            "소년": "소아 장기 이식", "소녀": "소아 장기 이식", "그녀": "소아 장기 이식", 
+            "그": "신장 보호", "그들": "신장 환우", "어린이": "소아 장기 이식", 
+            "아이": "소아 장기 이식", "환자": "신장 환우", "사람": "신장 보호", 
+            "연구": "신장 연구", "발표": "신장 소식", "보도": "신장 뉴스",
+            "형제": "장기 기증", "오빠": "장기 기증", "누나": "장기 기증", 
+            "언니": "장기 기증", "동생": "장기 기증", "가족": "가족 건강",
+            "세": "소아 장기 이식", "세의": "소아 장기 이식", "그레이시": "소아 장기 이식"
+        }
+        if candidate in subject_replace_map:
+            return subject_replace_map[candidate]
+            
+        # 숫자가 포함된 단어이거나 너무 짧은 비정상 글자 필터 방어 (예: 11세, 11, 세 등 격퇴)
+        if not re.match(r'^[가-힣]+$', candidate) or candidate.isdigit() or len(candidate) < 2:
+            return "소아 장기 이식"
+            
+        return candidate
+        
+    return "만성 콩팥병 관리"
 def generate_dynamic_free_content(feed_name, link, translated_title, translated_body):
     """
     무료 번역 모드(Fallback) 실행 시, 100% 획일적인 정적 템일 복제를 영구 박멸하고,
@@ -370,7 +329,10 @@ def call_gemini_api(api_key, prompt):
 
 def auto_collect_posts():
     # 수집 정보 (의학적으로 공신력과 무결한 가동성이 입증된 글로벌 메이저 헬스 RSS 피드 매칭)
+    # 인공신장, 최신 투석기기 및 신약 정보가 가장 활발하게 보도되는 2대 강자 최상단 전진 배치!
     feeds = [
+        {"name": "Medical News Today Urology", "url": "https://rss.medicalnewstoday.com/urology-nephrology.xml"},
+        {"name": "News Medical Renal", "url": "https://www.news-medical.net/syndication.axd?feed=Renal-Disease"},
         {"name": "ScienceDaily Kidney Disease", "url": "https://www.sciencedaily.com/rss/health_medicine/kidney_disease.xml"},
         {"name": "ScienceDaily Nutrition", "url": "https://www.sciencedaily.com/rss/health_medicine/nutrition.xml"},
         {"name": "WHO Health News", "url": "https://www.who.int/rss-feeds/news-english.xml"},
@@ -400,24 +362,11 @@ def auto_collect_posts():
                 break
                 
     print("[INFO] 만성 콩팥병 및 신장 건강 전문 AI/지능형 자동 수집 파이프라인 가동!")
-    os.makedirs(POSTS_DIR, exist_ok=True)
-    
-    # [품질 보장 조치]: 수집 기동 시 기존의 단순/부실했던 자동 수집 기사들을 깨끗하게 일괄 삭제 청소합니다.
-    print("[INFO] 기존 부실 자동 수집 기사 일괄 소거 청소 개시...")
-    removed_count = 0
-    if os.path.exists(POSTS_DIR):
-        for filename in os.listdir(POSTS_DIR):
-            if filename.startswith("auto-") and filename.endswith(".md"):
-                try:
-                    os.remove(os.path.join(POSTS_DIR, filename))
-                    removed_count += 1
-                except Exception as e:
-                    print(f"  [CLEAN WARNING] 파일 삭제 실패 {filename}: {e}")
-    print(f"[INFO] 레거시 자동 수집 기사 총 {removed_count}개 일괄 삭제 완료!")
-    
+    # [품질 보장 조치]: 콘텐츠 영구 누적을 위해 이전 자동 파일 청소 단계를 배제합니다.
+    print('[INFO] 콘텐츠 영구 누적을 위해 이전 자동 파일 청소 단계를 배제합니다.')
     collected_count = 0
-    # 피드당 2개씩 수집하여 최종 엄선된 고품질 기사 총 5~6개 수집 목표 달성
-    max_collect_limit = 6
+    # 하루 수집 상한 한도를 3건으로 하향 조정하여 중복 노출을 지능적으로 차단
+    max_collect_limit = 3
     
     for idx, feed_info in enumerate(feeds):
         if collected_count >= max_collect_limit:
@@ -600,6 +549,102 @@ slug: "auto-{slug}"
             print(f"  [SUCCESS] 초안 마크다운 적재 완료: auto-{slug}.md (제목: {final_title})")
             collected_count += 1
             
+    # [백업 엔진]: 오늘 신규 수집된 뉴스가 없는 경우, 블로그 활성화를 위해 Gemini 오리지널 특집 기사(인공신장/새 투석기)를 발행합니다.
+    if collected_count == 0 and api_key_loaded:
+        print("\n  [BACKUP ENGINE] 오늘 신규 수집된 뉴스가 없습니다. 블로그 활성화를 위해 Gemini 오리지널 특집 기사를 발행합니다...")
+        
+        # 만성 콩팥병 환우들의 지적 요구를 충족할 인공신장, 최신 투석 기술 테마들 중 하나를 무작위로 선정
+        special_topics = [
+            {
+                "theme": "웨어러블 인공신장(WAK) 개발 로드맵과 상용화 전망",
+                "slug": "wearable-artificial-kidney-development-status",
+                "tag": "인공신장"
+            },
+            {
+                "theme": "차세대 고효율 혈액투석기 필터 기술과 요독 제거 향상 방안",
+                "slug": "next-generation-hemodialysis-filter-technology",
+                "tag": "새로운 투석기기"
+            },
+            {
+                "theme": "만성 신부전 환우를 위한 신장 보호 4대 영양 밸런스 실천 비책",
+                "slug": "four-essential-renal-dietary-rules-for-ckd",
+                "tag": "식이요법"
+            },
+            {
+                "theme": "복막투석 환우를 위한 가정 내 복막염 예방 및 안전 관리 수칙",
+                "slug": "home-peritoneal-dialysis-safety-guide",
+                "tag": "새로운 투석기기"
+            }
+        ]
+        
+        selected_topic = random.choice(special_topics)
+        output_filepath = os.path.join(POSTS_DIR, f"auto-{selected_topic['slug']}.md")
+        
+        if not os.path.exists(output_filepath):
+            print(f"  [AI CREATIVE] 특집 주제로 집필 개시: {selected_topic['theme']}")
+            
+            prompt = f"""
+            You are an expert clinical nephrologist and professional renal health writer.
+            Your task is to write a comprehensive, highly engaging, empathetic, and long-form (at least 2000 Korean characters) blog post about the following special topic:
+            
+            Topic: {selected_topic['theme']}
+            
+            Structure the post beautifully with Heading 2 (##) and Heading 3 (###).
+            Use polite and caring Korean (use '-요', '-습니다' style).
+            Include:
+            ## 1. 들어가는 말 및 환우들의 공감대 형성 (Empathetic introduction)
+            ## 2. {selected_topic['theme']}의 정밀 핵심 분석 (Detailed explanation and status of technology/diet)
+            ## 3. 만성 콩팥병 환우들을 위한 실생활 맞춤 행동 강령 (Practical daily action plan)
+            ## 4. 신장학 전문의 관점에서의 희망적 제언 및 마감 (Closing statement)
+            
+            The first line of your output MUST be the title starting with:
+            TITLE: [Catchy, click-driven, highly empathetic hooking Korean title with tag like '[특집기획]']
+            """
+            
+            ai_output = call_gemini_api(api_key_loaded, prompt)
+            if ai_output:
+                ai_output = ai_output.strip()
+                lines = ai_output.split('\n')
+                title_line = ""
+                body_start_idx = 0
+                
+                for idx_line, line in enumerate(lines):
+                    if line.startswith("TITLE:"):
+                        title_line = line.replace("TITLE:", "").strip()
+                        body_start_idx = idx_line + 1
+                        break
+                    elif line.startswith("title:"):
+                        title_line = line.replace("title:", "").strip()
+                        body_start_idx = idx_line + 1
+                        break
+                
+                if title_line:
+                    final_title = title_line.strip('"').strip("'")
+                    post_content = "\n".join(lines[body_start_idx:]).strip()
+                else:
+                    final_title = f"[특집기획] {selected_topic['theme']}"
+                    post_content = ai_output
+                
+                meta_description = f"만성 콩팥병 환우분들을 위한 특집 의학 가이드 '{final_title}'에 대한 신장의학 신기술 및 웰니스 솔루션 리포트입니다."
+                
+                thumbnail_url = UNSPLASH_THUMBNAILS[random.randint(0, len(UNSPLASH_THUMBNAILS)-1)]
+                
+                yaml_header = f"""---
+title: "{final_title}"
+date: "{datetime.now().strftime('%Y-%m-%d')}"
+description: "{meta_description}"
+tags: ["콩팥건강", "만성콩팥병", "인공신장", "{selected_topic['tag']}"]
+thumbnail: "{thumbnail_url}"
+slug: "auto-{selected_topic['slug']}"
+---
+
+"""
+                with open(output_filepath, "w", encoding="utf-8") as f:
+                    f.write(yaml_header + post_content)
+                    
+                print(f"  [SUCCESS] 특집 오리지널 기사 발행 및 영속화 완료: auto-{selected_topic['slug']}.md (제목: {final_title})")
+                collected_count += 1
+
     print(f"\n[COMPLETE] 총 {collected_count}개의 고품질 신장 전문 AI/지능형 기사 초안이 '/data/posts/' 하위에 완벽히 생성 적재되었습니다!")
 
 if __name__ == "__main__":
