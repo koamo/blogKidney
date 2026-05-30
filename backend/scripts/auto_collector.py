@@ -292,7 +292,7 @@ def call_gemini_api(api_key, prompt):
     """
     구글 최신 Gemini API를 강력한 재시도 로직과 모델명 다변화(1.5-flash / 2.5-flash) 정책을 탑재하여 호출합니다.
     """
-    models = ["gemini-1.5-flash", "gemini-2.5-flash"]
+    models = ["gemini-2.5-flash", "gemini-flash-latest"]
     
     for model_name in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
