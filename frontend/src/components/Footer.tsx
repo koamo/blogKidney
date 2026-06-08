@@ -17,11 +17,15 @@ export default function Footer() {
         
         {/* 부가 정책 링크 (구글 애드센스 심사관들이 블로그의 규정 준수 여부를 판단할 때 유용) */}
         <div className="flex gap-4 text-xs text-slate-500">
-          <a href="#" className="hover:text-slate-300 transition-colors">
+          <a href="/ko/about" className="hover:text-slate-300 transition-colors">
+            소개 (About)
+          </a>
+          <span>·</span>
+          <a href="/ko/privacy" className="hover:text-slate-300 transition-colors">
             개인정보처리방침
           </a>
           <span>·</span>
-          <a href="#" className="hover:text-slate-300 transition-colors">
+          <a href="/ko/terms" className="hover:text-slate-300 transition-colors">
             이용약관
           </a>
         </div>

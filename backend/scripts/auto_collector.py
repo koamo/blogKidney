@@ -463,11 +463,19 @@ def auto_collect_posts():
                 Your Output Format MUST contain the TITLE on the very first line starting with "TITLE: ", followed by the raw body of the article in standard Markdown format (separated by newlines).
                 Do not include YAML frontmatter, do not include H1 title inside the markdown.
                 Structure the post beautifully with Heading 2 (##) and Heading 3 (###).
+                
+                [RICH FORMATTING REQUIRED FOR ADSENSE]:
+                You MUST use rich markdown formatting to break up long walls of text.
+                - Use Blockquotes (>) for important key takeaways or medical quotes.
+                - Use Bold text (**) for important medical keywords, numbers, or concepts.
+                - Use unordered/ordered lists for dietary steps or summaries.
+                - Break your paragraphs so they are not too long. Make it visually appealing and easy to read for patients.
+                
                 Include:
-                ## 1. 최신 의학 리포트 요약 및 팩트 체크 (Detailed explanation of the news)
-                ## 2. 만성 콩팥병 환우를 위한 핵심 건강 수칙 (Empathy, practical daily tips, connection of this news to renal health)
-                ## 3. 콩팥 라이프 식이 4대 원칙 맞춤형 케어 (Low sodium/potassium/phosphorus/protein specific cooking and diet guide deeply customized to this news)
-                ## 4. 결론 및 신장 전문의 관점의 시사점 (Empathetic closing statement)
+                ## 1. 최신 의학 리포트 요약 및 팩트 체크 (Detailed explanation of the news using > blockquotes for core medical facts)
+                ## 2. 만성 콩팥병 환우를 위한 핵심 건강 수칙 (Empathy, practical daily tips, connection of this news to renal health, use bullet points)
+                ## 3. 콩팥 라이프 식이 4대 원칙 맞춤형 케어 (Low sodium/potassium/phosphorus/protein specific cooking and diet guide deeply customized to this news, highlight key terms in **bold**)
+                ## 4. 결론 및 신장 전문의 관점의 시사점 (Empathetic closing statement with a final thought of hope in a > blockquote)
                 """
                 
                 ai_output = call_gemini_api(api_key_loaded, prompt)

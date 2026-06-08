@@ -141,6 +141,18 @@ export default async function PostDetailPage({ params }: PageProps) {
         </div>
       </header>
 
+      {/* [시각적 가치 증대] 본문 최상단에 썸네일 고화질 렌더링 (구글 애드센스 심사 통과 핵심 기법) */}
+      {post.thumbnail && (
+        <div className="w-full mb-10 overflow-hidden rounded-xl bg-slate-900 border border-slate-800">
+          <img 
+            src={post.thumbnail} 
+            alt={post.title} 
+            className="w-full h-[400px] object-cover opacity-90 hover:opacity-100 transition-opacity"
+            loading="eager"
+          />
+        </div>
+      )}
+
       {/* [수익화 장치 1] 기사 본문 상단 애드센스 배너 영역 */}
       <AdSenseUnit slot="2000000001" format="auto" />
 
