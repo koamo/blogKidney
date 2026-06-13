@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AdSenseUnit from '@/components/AdSenseUnit';
+import MedicalDisclaimer from '@/components/MedicalDisclaimer';
+import AuthorBio from '@/components/AuthorBio';
 // Next.js 내부 데이터 저장소에 파이썬이 다국어 번역 적재해 놓은 posts.json 로드
 import postsData from '@/data/posts.json';
 
@@ -156,11 +158,17 @@ export default async function PostDetailPage({ params }: PageProps) {
       {/* [수익화 장치 1] 기사 본문 상단 애드센스 배너 영역 */}
       <AdSenseUnit slot="2000000001" format="auto" />
 
+      {/* [YMYL 특화] 본문 상단 의학 면책 조항 컴포넌트 삽입 */}
+      <MedicalDisclaimer lang={lang} />
+
       {/* [본문 렌더링] 마크다운 번역 HTML 및 수려한 타이포그래피 이식 */}
       <section 
         className="prose max-w-none my-12"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+
+      {/* [YMYL 특화] 본문 하단 저자 프로필 (전문성 부여) */}
+      <AuthorBio lang={lang} />
 
       {/* [수익화 장치 2] 기사 본문 하단 애드센스 배너 영역 */}
       <AdSenseUnit slot="2000000002" format="auto" />
