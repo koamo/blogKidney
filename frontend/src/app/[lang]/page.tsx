@@ -91,6 +91,10 @@ export default async function Home({ params }: PageProps) {
   const allPosts: BlogPost[] = postsData as BlogPost[];
   const posts = allPosts.filter((post) => post.lang === lang);
 
+  // [프리미엄 포털 구조] 최신 1개는 Featured, 그 다음 9개는 Recent로 분리
+  const featuredPost = posts[0];
+  const recentPosts = posts.slice(1, 10);
+
   // 2. 다국어 텍스트 번역 딕셔너리 (i18n) 설정
   const translations = {
     ko: {
@@ -100,6 +104,8 @@ export default async function Home({ params }: PageProps) {
       latest: '최신 의학 컬럼 리포트',
       total: `총 ${posts.length}개 발행됨`,
       readMore: '자세히 보기',
+      featured: '🔥 오늘의 추천 의학 칼럼',
+      viewAll: '모든 칼럼 보기 →'
     },
     en: {
       badge: '✨ Premium Renal Health Archive',
@@ -108,6 +114,8 @@ export default async function Home({ params }: PageProps) {
       latest: 'Latest Medical Reports',
       total: `Total ${posts.length} articles published`,
       readMore: 'Read Article',
+      featured: '🔥 Featured Medical Column',
+      viewAll: 'View All Columns →'
     },
     ja: {
       badge: '✨ プレミアム腎臓健康アーカイブ',
@@ -116,6 +124,8 @@ export default async function Home({ params }: PageProps) {
       latest: '最新の医学記事一覧',
       total: `合計 ${posts.length} 件の記事`,
       readMore: '詳細を見る',
+      featured: '🔥 おすすめの医学コラム',
+      viewAll: 'すべてのコラムを見る →'
     }
   };
 
@@ -145,8 +155,46 @@ export default async function Home({ params }: PageProps) {
         </p>
       </section>
 
+      {/* [Featured Post] 대형 썸네일 추천 기사 (애드센스 구조 최적화) */}
+      {featuredPost && (
+        <div className="mb-20">
+          <h2 className="text-xl font-bold tracking-tight text-violet-400 flex items-center gap-2 mb-6 font-['Outfit']">
+            {t.featured}
+          </h2>
+          <Link href={`/${lang}/posts/${featuredPost.slug}`} className="group relative flex flex-col md:flex-row overflow-hidden rounded-3xl border border-slate-800/80 bg-[#070b12]/80 transition-all duration-300 hover:border-violet-500/40 hover:shadow-2xl hover:shadow-violet-600/10">
+            {/* Featured 이미지 */}
+            <div className="w-full md:w-1/2 h-64 md:h-auto bg-slate-900 relative overflow-hidden">
+              {featuredPost.thumbnail ? (
+                <img src={featuredPost.thumbnail} alt={featuredPost.title} className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105" />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-violet-900/40 to-cyan-900/20 flex items-center justify-center">
+                  <span className="text-6xl filter drop-shadow-lg">✨</span>
+                </div>
+              )}
+            </div>
+            {/* Featured 내용 */}
+            <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+              <span className="text-sm text-slate-500 font-semibold mb-3">{featuredPost.date}</span>
+              <h3 className="text-3xl font-extrabold text-white group-hover:text-violet-400 transition-colors duration-200 mb-4 leading-tight">
+                {featuredPost.title}
+              </h3>
+              <p className="text-slate-400 text-base leading-relaxed line-clamp-3 mb-6">
+                {featuredPost.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {featuredPost.tags.map((tag) => (
+                  <span key={tag} className="rounded bg-violet-600/20 border border-violet-500/30 px-3 py-1 text-xs text-violet-300 font-semibold">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Link>
+        </div>
+      )}
+
       {/* 최신 포스트 현황 타이틀 영역 */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-800">
         <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2 font-['Outfit']">
           {t.latest}
           <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -154,9 +202,9 @@ export default async function Home({ params }: PageProps) {
         <span className="text-xs text-slate-500 font-medium">{t.total}</span>
       </div>
 
-      {/* 포스트 카드 반응형 3열 레이아웃 */}
+      {/* 포스트 카드 반응형 3열 레이아웃 (최신 9개만 노출) */}
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
+        {recentPosts.map((post) => (
           <article 
             key={`${post.slug}-${post.lang}`}
             className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-800/60 bg-[#070b12]/60 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-500/40 hover:shadow-2xl hover:shadow-violet-600/5"
@@ -166,7 +214,7 @@ export default async function Home({ params }: PageProps) {
               <img 
                 src={post.thumbnail} 
                 alt={post.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#070b12] to-transparent opacity-60" />
@@ -200,6 +248,16 @@ export default async function Home({ params }: PageProps) {
             </div>
           </article>
         ))}
+      </div>
+
+      {/* [아카이브 링크] 모든 기사 보기 버튼 */}
+      <div className="mt-12 flex justify-center">
+        <Link 
+          href={`/${lang}/archive`}
+          className="inline-flex items-center justify-center px-8 py-3 text-sm font-bold text-white bg-slate-800 hover:bg-violet-600 rounded-full transition-colors duration-300 shadow-lg shadow-black/50"
+        >
+          {t.viewAll}
+        </Link>
       </div>
 
       {/* 구글 애드센스 피드용 인피드 광고 슬롯 */}

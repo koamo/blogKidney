@@ -29,11 +29,13 @@ export default function Header({ lang }: HeaderProps) {
   };
 
   // UI 언어 분기
-  const navText = {
-    ko: '전체 기사',
-    en: 'Articles',
-    ja: '記事一覧'
-  }[lang as 'ko' | 'en' | 'ja'] || '전체 기사';
+  const navHome = {
+    ko: '홈', en: 'Home', ja: 'ホーム'
+  }[lang as 'ko' | 'en' | 'ja'] || '홈';
+
+  const navArchive = {
+    ko: '모든 칼럼', en: 'Archive', ja: 'すべてのコラム'
+  }[lang as 'ko' | 'en' | 'ja'] || '모든 칼럼';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/10 bg-[#030712]/80 backdrop-blur-md">
@@ -41,8 +43,9 @@ export default function Header({ lang }: HeaderProps) {
         
         {/* 브랜드 로고 (클릭 시 현재 언어의 메인 홈으로 이동) */}
         <Link href={`/${lang}`} className="flex items-center gap-2">
+          {/* 생명력과 정화를 상징하는 블루-그린-퍼플 그라데이션 타이포그래피 */}
           <span className="bg-gradient-to-r from-violet-400 via-indigo-400 to-cyan-400 bg-clip-text text-xl font-black tracking-tight text-transparent transition-transform hover:scale-105 duration-200">
-            GoldenLog.
+            KidneyLife.
           </span>
         </Link>
         
@@ -52,7 +55,13 @@ export default function Header({ lang }: HeaderProps) {
             href={`/${lang}`} 
             className="text-sm font-medium text-slate-300 hover:text-violet-300 transition-colors"
           >
-            {navText}
+            {navHome}
+          </Link>
+          <Link 
+            href={`/${lang}/archive`} 
+            className="text-sm font-medium text-slate-300 hover:text-violet-300 transition-colors"
+          >
+            {navArchive}
           </Link>
           
           {/* [다국어 퀵 스위처]: 미니멀 네온 아우라 세그먼트 버튼 */}
