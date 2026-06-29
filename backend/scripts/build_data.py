@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 import json
 import yaml
@@ -142,6 +142,7 @@ def build_blog_data():
                 if lang == 'ko':
                     title = orig_title
                     description = orig_description
+                    translated_tags = tags
                     translated_markdown_body = markdown_text
                 else:
                     translator = GoogleTranslator(source='ko', target=lang)
@@ -152,6 +153,14 @@ def build_blog_data():
                     description = translator.translate(orig_description)
                     if description is None:
                         description = orig_description
+                        
+                    translated_tags = []
+                    for tag in tags:
+                        try:
+                            tt = translator.translate(tag)
+                            translated_tags.append(tt if tt else tag)
+                        except:
+                            translated_tags.append(tag)
                     
                     translated_markdown_body = translate_markdown(markdown_text, lang)
                 
@@ -164,7 +173,7 @@ def build_blog_data():
                     "title": title,
                     "date": str(date),
                     "description": description,
-                    "tags": tags,
+                    "tags": translated_tags,
                     "thumbnail": thumbnail,
                     "slug": slug,
                     "lang": lang,

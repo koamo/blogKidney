@@ -119,7 +119,7 @@ export default async function Home({ params }: PageProps) {
     },
     ja: {
       badge: '✨ プレミアム腎臓健康アーカイブ',
-      welcome: '腎臓의 건강과 식사의 가치를 높이는 공간、',
+      welcome: '腎臓の健康と食事の価値を高める空間、',
       description: '低ナトリウム/低カリウム/低リン/低タンパクの4大食事管理ガイドと正しい腎臓健康医学情報を深く記録し、患者とその家族に最適化されたコンテンツをお届けします。',
       latest: '最新の医学記事一覧',
       total: `合計 ${posts.length} 件の記事`,
