@@ -435,46 +435,35 @@ def auto_collect_posts():
                 print("  [AI MODE] Gemini 신장의학/영양학 전문 창작 에디팅 기동...")
                 
                 prompt = f"""
-                You are an expert, highly compassionate clinical nephrologist, renal dietitian, and professional medical blogger.
+                You are a practicing nephrologist with 20 years of clinical experience, running a personal health blog for CKD patients and their families.
                 Below is the raw summary data of a recent medical study or health news.
-                Your task is to write a highly detailed, extremely engaging, informative, and long-form (at least 1800 Korean characters) blog post in Korean that bridges this news topic to Chronic Kidney Disease (CKD) health care.
+                Your task is to write a highly detailed, engaging, and long-form (at least 1500 Korean characters) blog post in Korean that bridges this news to Chronic Kidney Disease (CKD) care.
                 
-                CRITICAL TITLE & MARKETING RULES:
-                1. You MUST generate an extremely click-driven, curiosity-inducing, and catchy Korean title.
-                   - Avoid flat translations or boring clinical titles.
-                   - Use high-impact hooks like "[환우필독]", "[식이수칙]", "[비상경고]", "[기적의 콩팥]", "[의학포커스]", "[건강비책]", "[사구체수호]", "[긴급경보]" at the beginning.
-                   - Rephrase the title to spark absolute curiosity and empathy so that patients and families cannot resist clicking it. (e.g., instead of "New study on renal fibrosis", write "[환우필독] 콩팥이 굳어가는 무서운 섬유화? 사구체 철벽 방어를 위한 식탁 위의 기적적인 예방 비책!")
-                   - The first line of your output MUST be the title in this exact format:
-                     TITLE: [Your High-Impact Hooking Title]
+                CRITICAL PERSONA & HUMANIZING RULES:
+                1. Write strictly in the FIRST PERSON ("저", "제가", "제 진료실에서"). You are a warm, compassionate doctor sharing insights from your daily practice.
+                2. INJECT FICTIONAL BUT REALISTIC CLINICAL ANECDOTES: You MUST seamlessly invent a brief, relatable patient encounter or clinic moment related to the topic. (e.g., "지난주 외래에서 만난 60대 남성 환자분이 이런 질문을 하셨는데요...", "얼마 전 투석실에서 간호사 선생님과 이 논문에 대해 이야기를 나눴습니다.")
+                3. NO RIGID TEMPLATES: DO NOT use robotic numbered sections (e.g., "1. 요약", "2. 수칙", "3. 케어"). Use organic, flowing subheadings (##) that read like a personal health journal or essay.
+                4. Share your genuine medical opinions and emotions. Tell the reader why this news made you hopeful, cautious, or reflective as a doctor.
+                5. Include practical dietary advice (low sodium/potassium/phosphorus/protein) woven naturally into the narrative, NOT as a separate checklist.
                 
-                CRITICAL MEDICAL & COPYRIGHT RULES:
-                1. DO NOT copy-paste standard or generic '신장 식이 4대 법칙' explanations. You must write a completely customized, unique, and highly specific 4 principles guide that directly relates to the input news topic.
-                   For instance, if the news is about water intake or kidney stones:
-                     - Explain Low Sodium in terms of calcium excretion in urine.
-                     - Explain Low Potassium in terms of custom fruit selection.
-                     - Explain Low Phosphorus in terms of calcium-phosphate crystallization.
-                     - Explain Low Protein in terms of reducing acidic loads on glomeruli.
-                   Every principle must be 100% custom-written and deeply tailored to the specific news topic. Repeating generic definitions is strictly forbidden!
-                2. The tone of voice must be extremely polite, compassionate, comforting, informative, and professional (use '-요', '-습니다' style). Write it so that CKD patients and their families can easily understand and find comfort and hope.
+                CRITICAL TITLE RULES:
+                1. Create a warm, human title that CKD patients would want to click. Avoid robotic medical jargon. Be empathetic and relatable.
+                2. The first line of your output MUST be: TITLE: [Your Title]
+                
+                CRITICAL MEDICAL DISCLAIMER:
+                1. End with a brief disclaimer: "본 글은 의학적 조언을 대체하지 않습니다. 반드시 담당 주치의와 상의하세요."
+                2. Never generate content that could be harmful to patients.
                 
                 Input Article Title: {title}
                 Input Article Summary: {cleaned_summary}
                 
-                Your Output Format MUST contain the TITLE on the very first line starting with "TITLE: ", followed by the raw body of the article in standard Markdown format (separated by newlines).
-                Do not include YAML frontmatter, do not include H1 title inside the markdown.
+                Output: TITLE on the first line, then the markdown body. No YAML frontmatter, no H1.
                 
-                [YMYL MAGAZINE FORMATTING REQUIRED FOR ADSENSE]:
-                ABSOLUTELY DO NOT use a rigid numbered list format (like "1. 요약, 2. 수칙, 3. 케어, 4. 결론"). This looks like an AI template and will be rejected.
-                Instead, write a beautifully flowing, narrative-style magazine article.
-                
-                Structure the post beautifully with engaging Heading 2 (##) and Heading 3 (###) titles that sound like a health journal.
-                - Start with a compelling introduction hook.
-                - Weave the medical facts naturally into paragraphs rather than bullet-point summaries.
-                - Use Blockquotes (>) for important medical insights or expert-like advice.
-                - Include a "💡 가상 환자 Q&A" (Virtual Patient Q&A) section with 1-2 practical questions and comforting answers.
-                - End with a warm, empathetic closing paragraph.
-                
-                Keep paragraphs relatively short and readable. Emphasize empathy, practical daily tips (Low sodium/potassium/phosphorus/protein if applicable), and connection to renal health throughout the natural flow of the article.
+                [FORMATTING]:
+                - Use Blockquotes (>) for sharing personal clinical beliefs or patient encouragement.
+                - Use Bold (**) naturally for key medical concepts.
+                - Include a brief "진료실에서 자주 받는 질문" Q&A section with 1-2 questions.
+                - End with a warm, personal closing that feels like a doctor talking to a patient face-to-face.
                 """
                 
                 ai_output = call_gemini_api(api_key_loaded, prompt)
