@@ -9,9 +9,9 @@ export default function Footer() {
         
         {/* 저작권 및 블로그 브랜딩 정보 */}
         <div>
-          <p className="text-sm font-semibold text-slate-400">GoldenLog. 개인 지식 아카이브</p>
+          <p className="text-sm font-semibold text-slate-400">KidneyLife. 콩팥 건강 전문 가이드</p>
           <p className="text-xs text-slate-500 mt-1">
-            © 2026 GoldenLog. All rights reserved. Powered by Next.js 16 (App Router) & Python 3.12.
+            © 2026 KidneyLife. All rights reserved. Powered by Next.js 16 (App Router) & Python 3.12.
           </p>
         </div>
         

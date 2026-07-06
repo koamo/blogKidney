@@ -379,8 +379,8 @@ def auto_collect_posts():
             print(f"  [ERROR] RSS 피드를 읽어들일 수 없습니다: {e}")
             continue
             
-        # 가장 최근 기사 최신 3개씩 파싱 시도 (필터에 통과하지 못하는 부실 기사가 있으므로 3개씩 후보 확보)
-        entries = feed.entries[:3]
+        # 가장 최근 기사 최신 15개씩 파싱 시도하여 투석/인공신장 관련 기사를 발굴합니다.
+        entries = feed.entries[:15]
         
         for entry in entries:
             if collected_count >= max_collect_limit:
@@ -399,6 +399,21 @@ def auto_collect_posts():
             # [품질 필터 2]: 요약문 글자 수가 80자 이하이거나 메타데이터 텍스트만 있는 부실 기사는 수집 원천 제외!
             if not validate_content(title, summary_clean):
                 print(f"  [SKIP QUALITY] 알맹이가 없고 단순 메타데이터만 든 부실 기사 거부: {title[:20]}...")
+                continue
+
+            # [토픽 필터 3]: 투석(dialysis) 및 인공신장(artificial kidney) 관련 기사만 엄선하여 수집
+            kidney_keywords = ['dialysis', 'hemodialysis', 'peritoneal', 'artificial kidney', 'wearable kidney', 'implantable kidney', 'kidney device', 'renal replacement', 'kidney transplant']
+            content_text = (title + " " + summary_clean).lower()
+            
+            has_topic = False
+            for kw in kidney_keywords:
+                pattern = rf"\b{re.escape(kw)}\b"
+                if re.search(pattern, content_text):
+                    has_topic = True
+                    break
+            
+            if not has_topic:
+                print(f"  [SKIP TOPIC] 투석/인공신장 관련 기사가 아님: {title[:30]}...")
                 continue
                 
             # 슬러그 생성 및 파일명 포맷 조합
@@ -436,15 +451,17 @@ def auto_collect_posts():
                 
                 prompt = f"""
                 You are a practicing nephrologist with 20 years of clinical experience, running a personal health blog for CKD patients and their families.
+                Your blog specifically focuses on dialysis technology (hemodialysis, peritoneal dialysis), next-generation dialysis equipment developments, and artificial kidney (implantable or wearable) research.
                 Below is the raw summary data of a recent medical study or health news.
                 Your task is to write a highly detailed, engaging, and long-form (at least 1500 Korean characters) blog post in Korean that bridges this news to Chronic Kidney Disease (CKD) care.
                 
                 CRITICAL PERSONA & HUMANIZING RULES:
                 1. Write strictly in the FIRST PERSON ("저", "제가", "제 진료실에서"). You are a warm, compassionate doctor sharing insights from your daily practice.
                 2. INJECT FICTIONAL BUT REALISTIC CLINICAL ANECDOTES: You MUST seamlessly invent a brief, relatable patient encounter or clinic moment related to the topic. (e.g., "지난주 외래에서 만난 60대 남성 환자분이 이런 질문을 하셨는데요...", "얼마 전 투석실에서 간호사 선생님과 이 논문에 대해 이야기를 나눴습니다.")
-                3. NO RIGID TEMPLATES: DO NOT use robotic numbered sections (e.g., "1. 요약", "2. 수칙", "3. 케어"). Use organic, flowing subheadings (##) that read like a personal health journal or essay.
-                4. Share your genuine medical opinions and emotions. Tell the reader why this news made you hopeful, cautious, or reflective as a doctor.
-                5. Include practical dietary advice (low sodium/potassium/phosphorus/protein) woven naturally into the narrative, NOT as a separate checklist.
+                3. FOCUS ON DIALYSIS & ARTIFICIAL KIDNEY: Ensure your article focuses on dialysis care, advanced dialysis devices, wearable/implantable artificial kidneys, or kidney transplants. Explain these complex technological and clinical concepts in simple terms that patients can easily understand.
+                4. NO RIGID TEMPLATES: DO NOT use robotic numbered sections (e.g., "1. 요약", "2. 수칙", "3. 케어"). Use organic, flowing subheadings (##) that read like a personal health journal or essay.
+                5. Share your genuine medical opinions and emotions. Tell the reader why this news made you hopeful, cautious, or reflective as a doctor.
+                6. Include practical dietary advice (low sodium/potassium/phosphorus/protein) woven naturally into the narrative, NOT as a separate checklist.
                 
                 CRITICAL TITLE RULES:
                 1. Create a warm, human title that CKD patients would want to click. Avoid robotic medical jargon. Be empathetic and relatable.

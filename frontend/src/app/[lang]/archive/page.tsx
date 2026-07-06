@@ -20,9 +20,7 @@ interface PageProps {
 
 export async function generateStaticParams() {
   return [
-    { lang: 'ko' },
-    { lang: 'en' },
-    { lang: 'ja' }
+    { lang: 'ko' }
   ];
 }
 
