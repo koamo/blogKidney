@@ -1,0 +1,5 @@
+feedparser>=6.0,<7
+requests>=2.31,<3
+deep-translator>=1.11,<2
+PyYAML>=6.0,<7
+Markdown>=3.6,<4

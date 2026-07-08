@@ -8,7 +8,7 @@ const defaultLocale = 'ko';
 /**
  * 사용자 요청을 한국어(/ko) 경로로 라우팅하고, 기존 다국어 URL 트래픽을 안전하게 리다이렉트하는 SEO 보존형 미들웨어입니다.
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // [보완 핵심]: 정적 자산, 썸네일 이미지 및 SEO 필수 파일(sitemap/robots)은 미들웨어 적용에서 완전히 예외 통과

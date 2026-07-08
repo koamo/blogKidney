@@ -1,4 +1,4 @@
-﻿import { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next';
 import postsData from '@/data/posts.json';
 
 interface BlogPost {
@@ -7,24 +7,22 @@ interface BlogPost {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts: BlogPost[] = postsData as BlogPost[];
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://blog-site-seven-weld.vercel.app';
+  const posts = postsData as BlogPost[];
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kidney-life.vercel.app';
 
-  // 1. 핵심 기본 루트 페이지 설정
-  const routes = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
-    },
-  ];
+  const staticRoutes = ['/ko', '/ko/archive', '/ko/about', '/ko/privacy', '/ko/terms'];
 
-  // 2. 다국어 컴파일 기사 주소 자동 연동
-  const postRoutes = posts.map((post) => ({
-    url: `${baseUrl}/posts/${post.slug}`,
-    lastModified: new Date(post.date),
+  const routes = staticRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
     changeFrequency: 'weekly' as const,
+    priority: route === '/ko' ? 1.0 : 0.6,
+  }));
+
+  const postRoutes = posts.map((post) => ({
+    url: `${baseUrl}/ko/posts/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
 

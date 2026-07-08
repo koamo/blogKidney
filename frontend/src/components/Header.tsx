@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 interface HeaderProps {
   lang: string;
@@ -18,7 +17,7 @@ export default function Header({ lang = 'ko' }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/10 bg-[#030712]/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        
+
         {/* 브랜드 로고 (클릭 시 현재 언어의 메인 홈으로 이동) */}
         <Link href={`/${lang}`} className="flex items-center gap-2">
           {/* 생명력과 정화를 상징하는 블루-그린-퍼플 그라데이션 타이포그래피 */}
@@ -26,23 +25,23 @@ export default function Header({ lang = 'ko' }: HeaderProps) {
             KidneyLife.
           </span>
         </Link>
-        
+
         {/* 네비게이션 영역 */}
         <div className="flex items-center gap-6">
-          <Link 
-            href={`/${lang}`} 
+          <Link
+            href={`/${lang}`}
             className="text-sm font-medium text-slate-300 hover:text-violet-300 transition-colors"
           >
             {navHome}
           </Link>
-          <Link 
-            href={`/${lang}/archive`} 
+          <Link
+            href={`/${lang}/archive`}
             className="text-sm font-medium text-slate-300 hover:text-violet-300 transition-colors"
           >
             {navArchive}
           </Link>
         </div>
-        
+
       </div>
     </header>
   );

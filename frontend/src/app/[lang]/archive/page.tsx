@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import AdSenseUnit from '@/components/AdSenseUnit';
 import postsData from '@/data/posts.json';
 
@@ -27,7 +28,7 @@ export async function generateStaticParams() {
 export default async function ArchivePage({ params }: PageProps) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang || 'ko';
-  
+
   const allPosts: BlogPost[] = postsData as BlogPost[];
   const posts = allPosts.filter((post) => post.lang === lang);
 
@@ -53,7 +54,7 @@ export default async function ArchivePage({ params }: PageProps) {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <Link 
+      <Link
         href={`/${lang}`}
         className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-violet-400 transition-colors mb-8 group focus:outline-none"
       >
@@ -75,10 +76,10 @@ export default async function ArchivePage({ params }: PageProps) {
           <Link href={`/${lang}/posts/${post.slug}`} key={`${post.slug}-${post.lang}`} className="group flex flex-col overflow-hidden rounded-2xl border border-slate-800 bg-[#070b12] hover:border-violet-500/30 transition-all duration-300">
             <div className="h-40 bg-slate-900 relative overflow-hidden">
               {post.thumbnail ? (
-                <img src={post.thumbnail} alt={post.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-105" loading="lazy" />
+                <Image src={post.thumbnail} alt={post.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-105" />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0c1220] to-[#04080e] flex items-center justify-center">
-                  <span className="text-3xl filter drop-shadow-md opacity-50">📝</span>
+                  <span className="text-3xl filter drop-shadow-md opacity-50">글</span>
                 </div>
               )}
             </div>
