@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   // [네이버 80자 최적화]: 공백 포함 76자로 구성하여 서치어드바이저의 가독성 경고를 완벽하게 방어
   description: '만성 콩팥병, 복막투석, 신장 건강 식단 정보를 일반 독자가 이해하기 쉽게 정리하는 건강 정보 블로그입니다.',
-  keywords: ['콩팥병', '만성콩팥병식단', '신장건강', '식이요법', '저염식', '저칼륨', 'KidneyLife'],
+  keywords: ['콩팥병', '만성콩팥병', '신장건강', '투석', '신장이식', '환자교육', 'KidneyLife'],
   authors: [{ name: 'KidneyLife' }],
   creator: 'KidneyLife',
   publisher: 'KidneyLife',
@@ -50,14 +50,6 @@ export const metadata: Metadata = {
     siteName: 'KidneyLife',
     locale: 'ko_KR',
     type: 'website',
-    images: [
-      {
-        url: '/ko',
-        width: 800,
-        height: 600,
-        alt: 'KidneyLife Healthy Diet and Healing Nature',
-      },
-    ],
   },
   // [구글 검색 노출]: 구글 서치 콘솔 등록을 위한 소유권 인증 고유키 설정
   verification: {

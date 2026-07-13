@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '개인정보처리방침',
+  description: 'KidneyLife의 개인정보 처리 및 광고·분석 도구 사용 기준을 안내합니다.',
+  alternates: { canonical: '/ko/privacy' },
+};
+
 interface PageProps {
   params: Promise<{ lang: string }>;
 }

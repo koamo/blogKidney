@@ -36,9 +36,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const lang = resolvedParams.lang || 'ko';
   const translations = {
     ko: {
-      title: 'KidneyLife - 만성 콩팥병 식이요법 및 건강관리 전문 블로그',
-      // [네이버 80자 최적화]: 공백 포함 76자로 구성하여 서치어드바이저 가독성 경고를 영리하게 관통
-      description: '만성 콩팥병 환우를 위한 저염, 저칼륨, 저인, 저단백 4대 식단 조절 가이드와 신장 건강 의학 정보를 제공하는 블로그입니다.'
+      title: 'KidneyLife - 만성 콩팥병과 투석 생활 정보',
+      description: '만성 콩팥병, 투석, 신장이식 관련 공개 자료를 환자와 가족이 이해하기 쉬운 언어로 정리하는 건강 정보 블로그입니다.'
     },
     en: {
       title: 'KidneyLife - Chronic Kidney Disease Diet & Health Blog',
@@ -53,6 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: t.title,
     description: t.description,
+    alternates: { canonical: `/${lang}` },
     openGraph: {
       title: t.title,
       description: t.description,
@@ -88,7 +88,7 @@ export default async function Home({ params }: PageProps) {
     ko: {
       badge: '신장 건강 정보 노트',
       welcome: '신장 건강 정보를 차분히 정리하는 공간,',
-      description: '만성 콩팥병 환우를 위한 저염, 저칼륨, 저인, 저단백 4대 식단 조절 가이드와 신장 건강 의학 정보를 제공하는 블로그입니다.',
+      description: '만성 콩팥병, 투석, 신장이식 관련 자료를 쉽게 풀어 쓰되 치료와 식사 조정은 개인 상태에 따라 다르다는 점을 함께 안내합니다.',
       latest: '최근 건강 정보',
       total: `총 ${posts.length}개 발행됨`,
       readMore: '자세히 보기',

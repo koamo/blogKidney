@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '이용약관',
+  description: 'KidneyLife 건강 정보의 이용 범위와 의학적 책임 한계를 안내합니다.',
+  alternates: { canonical: '/ko/terms' },
+};
+
 interface PageProps {
   params: Promise<{ lang: string }>;
 }

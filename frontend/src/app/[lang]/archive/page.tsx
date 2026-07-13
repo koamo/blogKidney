@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import AdSenseUnit from '@/components/AdSenseUnit';
 import postsData from '@/data/posts.json';
+
+export const metadata: Metadata = {
+  title: '전체 글',
+  description: 'KidneyLife에 발행된 만성 콩팥병, 투석, 신장이식 관련 글을 날짜순으로 확인합니다.',
+  alternates: { canonical: '/ko/archive' },
+};
 
 interface BlogPost {
   title: string;

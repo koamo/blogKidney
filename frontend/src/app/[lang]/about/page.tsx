@@ -1,3 +1,11 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '소개',
+  description: 'KidneyLife의 운영 목적, 자료 검토 원칙, 의학 정보의 한계를 안내합니다.',
+  alternates: { canonical: '/ko/about' },
+};
+
 interface PageProps {
   params: Promise<{ lang: string }>;
 }

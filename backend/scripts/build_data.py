@@ -51,8 +51,12 @@ def build_blog_data():
         filepath = os.path.join(POSTS_DIR, filename)
         file_hash = get_file_hash(filepath)
         
-        # 캐시에 해당 파일이 있고 내용 해시값이 정확하게 같다면 컴파일 생략
-        if filename in cache and cache[filename].get("hash") == file_hash:
+        # 캐시 구조가 현재 스키마와 일치할 때만 재사용합니다.
+        if (
+            filename in cache
+            and cache[filename].get("hash") == file_hash
+            and cache[filename].get("schema_version") == 2
+        ):
             print(f"[CACHE HIT] '{filename}' 변경 없음. 캐시 데이터 사용.")
             posts.extend(cache[filename]["posts"])
             new_cache[filename] = cache[filename]
@@ -88,6 +92,16 @@ def build_blog_data():
         tags = meta.get("tags", [])
         thumbnail = meta.get("thumbnail", "")
         slug = meta.get("slug", os.path.splitext(filename)[0])
+        status = str(meta.get("status", "published")).lower()
+
+        if status != "published":
+            print(f"  [SKIP] 검토 전 초안 제외: {slug} ({status})")
+            new_cache[filename] = {
+                "schema_version": 2,
+                "hash": file_hash,
+                "posts": [],
+            }
+            continue
         
         try:
             html_content = markdown.markdown(
@@ -103,12 +117,19 @@ def build_blog_data():
                 "thumbnail": thumbnail,
                 "slug": slug,
                 "lang": "ko",
-                "content": html_content
+                "content": html_content,
+                "status": status,
+                "sourceName": meta.get("source_name", ""),
+                "sourceTitle": meta.get("source_title", ""),
+                "sourceUrl": meta.get("source_url", ""),
+                "sourcePublishedAt": str(meta.get("source_published_at", "")),
+                "reviewedAt": str(meta.get("reviewed_at", "")),
             }
             
             file_posts = [post_data]
             posts.extend(file_posts)
             new_cache[filename] = {
+                "schema_version": 2,
                 "hash": file_hash,
                 "posts": file_posts
             }

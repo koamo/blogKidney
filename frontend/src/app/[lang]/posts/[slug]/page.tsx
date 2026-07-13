@@ -16,6 +16,11 @@ interface BlogPost {
   slug: string;
   lang: string;
   content: string;
+  sourceName?: string;
+  sourceTitle?: string;
+  sourceUrl?: string;
+  sourcePublishedAt?: string;
+  reviewedAt?: string;
 }
 // Next.js 16+ 비동기 Params 컴포넌트 프롭스 규격 (언어 및 슬러그 동시 인자 수집)
 interface PageProps {
@@ -61,6 +66,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: canonicalPath,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.reviewedAt || post.date,
       authors: ['KidneyLife'],
       tags: post.tags,
       images: post.thumbnail ? [{ url: post.thumbnail, alt: post.title }] : undefined,
@@ -80,6 +86,22 @@ export default async function PostDetailPage({ params }: PageProps) {
   if (!post) {
     notFound();
   }
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kidney-life.vercel.app';
+  const articleUrl = new URL(`/${lang}/posts/${post.slug}`, baseUrl).toString();
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.reviewedAt || post.date,
+    inLanguage: 'ko-KR',
+    mainEntityOfPage: articleUrl,
+    image: post.thumbnail || undefined,
+    author: { '@type': 'Organization', name: 'KidneyLife' },
+    publisher: { '@type': 'Organization', name: 'KidneyLife' },
+    isBasedOn: post.sourceUrl || undefined,
+  };
   // 2차 다국어 번역 보조 문구 사전 (UI 다국어화)
   const translations = {
     ko: {
@@ -98,6 +120,10 @@ export default async function PostDetailPage({ params }: PageProps) {
   const t = translations[lang as 'ko' | 'en' | 'ja'] || translations.ko;
   return (
     <article className="mx-auto max-w-4xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       {/* 럭셔리 트랜지션 뒤로가기 링크 (현재 접속 언어 목록으로 안전 백) */}
       <Link
         href={`/${lang}`}
@@ -128,6 +154,14 @@ export default async function PostDetailPage({ params }: PageProps) {
           <span className="font-semibold text-slate-400">{t.by} KidneyLife</span>
           <span>·</span>
           <span>{post.date}</span>
+          {post.sourceUrl && (
+            <>
+              <span>·</span>
+              <a href={post.sourceUrl} target="_blank" rel="noreferrer" className="hover:text-emerald-300">
+                원문 확인
+              </a>
+            </>
+          )}
         </div>
       </header>
       {/* [시각적 가치 증대] 본문 최상단에 썸네일 고화질 렌더링 (대표 이미지) */}
