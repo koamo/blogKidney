@@ -5,6 +5,8 @@ description: "복막 관련 연구가 복막투석 환자 관리에 어떤 의�
 tags: ["복막투석","신장건강","만성콩팥병","환자교육"]
 thumbnail: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80"
 slug: "auto-breakthrough-research-extends-hope-for"
+status: "draft"
+review_note: "원문 URL과 자료 검토 기록이 없어 근거를 보완하기 전까지 비공개"
 ---
 
 복막은 복막투석을 받는 환자에게 매우 중요한 조직입니다. 복막이 건강하게 기능해야 노폐물과 수분 제거가 안정적으로 이뤄집니다. 최근 복막 관련 연구가 주목받는 이유도 여기에 있습니다.

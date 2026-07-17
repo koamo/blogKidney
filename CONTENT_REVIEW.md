@@ -1,5 +1,56 @@
 # 콘텐츠 검토 기록
 
+## 2026-07-18 저가치 콘텐츠 개선
+
+### 공개 상태 정리
+
+- 공개: 7편
+- 검토 대기 초안: 2편
+- 제외: 3편
+- 출처와 검토 기록이 없던 `auto-breakthrough-research-extends-hope-for.md`, `auto-developing-kidneys-from-scratch.md`는 `draft`로 전환했습니다.
+- 새 글과 기존 글 모두 `status`가 없으면 공개되지 않습니다.
+
+### 발행 기준
+
+`backend/scripts/content_rules.py`를 콘텐츠 감사와 JSON 빌드가 함께 사용합니다. 공개 글은 다음 조건을 모두 충족해야 합니다.
+
+- 제목, 날짜, 설명, 태그, 대표 이미지, 슬러그와 명시적인 `status`
+- 콘텐츠 유형, 편집자가 보완한 점, 검토 주체와 검토일
+- 공백 제외 1,200자 이상, H2 3개 이상, `참고 자료` 섹션
+- 진단·치료를 대신하지 않는다는 안내 또는 담당 의료진과 확인할 사항
+- 연구 검토 글은 보도 원문과 1차 자료 URL 모두 필요
+
+RSS 수집 글은 항상 `draft`로 저장되며 `editorial_value`, `reviewed_by`, `reviewed_at`을 운영자가 채우고 발행 기준을 통과하기 전에는 `posts.json`에 포함되지 않습니다.
+
+### 새 원본 안내 글
+
+| 파일 | 독자에게 제공하는 값 | 주요 근거 |
+| --- | --- | --- |
+| `egfr-uacr-test-results-guide.md` | eGFR과 UACR을 함께 보고 날짜별 추세를 질문하는 방법 | KDIGO 2024, NIDDK |
+| `ckd-appointment-preparation-checklist.md` | 검사표·약 목록·증상·질문을 한 장에 준비하는 순서 | NIDDK |
+| `dialysis-options-question-list.md` | 혈액투석과 복막투석을 의료·생활 조건으로 비교하는 12가지 질문 | NIDDK, 대한신장학회 |
+| `kidney-medicine-list-safety.md` | 처방약·일반약·영양제·한약을 한 목록으로 점검하는 방법 | NIDDK |
+
+각 글에는 재사용 가능한 자체 SVG 안내 도표를 추가했습니다. 외부 환자 사진이나 학회 자료 이미지를 복제하지 않았습니다.
+
+### 사이트 신뢰 정보와 광고
+
+- 소개 페이지에 개인 운영 블로그임을 밝히고 자료 편집 검토와 의료인 감수를 구분했습니다.
+- `/ko/editorial-policy`에 자료 선택, AI 보조, 자동 수집, 감수, 광고, 정정 원칙을 공개했습니다.
+- 글 상세 화면에 콘텐츠 유형, 발행일, 검토일, 편집 기여, 1차 자료를 표시합니다.
+- 사이트맵에 편집 원칙 페이지와 글 대표 이미지를 포함했습니다.
+- 광고 소유권 메타태그는 유지하되 광고 스크립트와 슬롯은 `NEXT_PUBLIC_ADSENSE_ENABLED=true`이고 광고 계정 ID가 설정된 경우에만 로드됩니다.
+
+### 저부하 검증 결과
+
+- `python backend/scripts/audit_content.py --strict`: 오류 0, 경고 0
+- `python backend/scripts/build_data.py`: 공개 글 7편 생성
+- 사용자 요청에 따라 Next.js 프로덕션 빌드, 개발 서버, 브라우저 렌더링과 스크린샷 검사는 실행하지 않습니다.
+
+배포 전에는 `.env.example`을 참고해 실제 연락 이메일과 사이트 URL을 설정하고, 운영자가 모바일·데스크톱 화면과 링크를 직접 확인해야 합니다.
+
+---
+
 - 검토일: 2026-07-13
 - 기준 브랜치: `main`
 - 검토 기준 커밋: `fdf32f7`

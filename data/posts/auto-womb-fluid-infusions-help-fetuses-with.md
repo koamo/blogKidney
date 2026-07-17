@@ -6,6 +6,9 @@ tags: ["태아신부전", "소아투석", "양수주입술", "임상시험"]
 thumbnail: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
 slug: "auto-womb-fluid-infusions-help-fetuses-with"
 status: "published"
+content_type: "reviewed-research"
+editorial_value: "단기 생존 지표와 치료 목적을 분리하고, 조산과 출생 후 투석 등 보도 제목에서 놓치기 쉬운 한계를 함께 설명했습니다."
+reviewed_by: "KidneyLife 자료 편집부"
 source_name: "Medical Xpress"
 source_title: "Womb fluid infusions help fetuses with kidney failure survive after birth"
 source_url: "https://medicalxpress.com/news/2026-07-womb-fluid-infusions-fetuses-kidney.html"
@@ -38,9 +41,15 @@ RAFT 시험은 미국 13개 센터에서 진행됐습니다. 이번 보고에는
 
 연속 양수 주입술은 일반적인 산전 진료에서 선택할 수 있는 표준 처치로 단순화하기 어렵습니다. 태아치료, 산모태아의학, 소아신장학, 신생아집중치료와 소아외과가 함께 판단하고 돌볼 수 있는 전문 센터가 필요합니다. 연구진도 다음 단계에서 조산을 줄이고 출생 후 치료를 개선하는 문제를 계속 살펴보고 있습니다.
 
+## 가족이 상담에서 확인할 부분
+
+이 치료를 다루는 상담에서는 출생 자체뿐 아니라 출생 후 치료 부담까지 함께 물어야 합니다. 주입술을 시작할 수 있는 조건과 중단 기준, 조산 가능성, 출생 직후 호흡 치료와 투석 가능 여부, 장기간 입원이 가족에게 미칠 영향이 모두 중요한 질문입니다. 연구 결과의 생존 지표가 어느 시점까지를 뜻하는지도 확인해야 합니다.
+
+센터가 시술을 시행한다는 사실만으로 모든 임신에 적합한 것은 아닙니다. 태아 신부전의 원인과 동반 이상, 산모의 상태, 치료센터까지의 이동과 출산 후 돌봄 여건을 여러 전문과가 함께 검토합니다. 온라인 글은 개별 태아의 예후나 치료 적합성을 판단할 수 없으므로 검사 결과를 가지고 전문센터 의료진과 충분히 상의해야 합니다.
+
 ## 참고 자료
 
 - [JAMA, Neonatal Survival After Serial Amnioinfusions for Anhydramnios Due to Fetal Kidney Failure](https://doi.org/10.1001/jama.2026.8568)
 - [Medical Xpress, Womb fluid infusions help fetuses with kidney failure survive after birth](https://medicalxpress.com/news/2026-07-womb-fluid-infusions-fetuses-kidney.html)
 
-이 글은 임상시험 결과를 설명하는 일반 정보입니다. 실제 적용 가능성은 산모와 태아의 상태에 따라 달라지므로 전문 태아치료센터 의료진과 상담해야 합니다.
+이 글은 임상시험 결과를 설명하는 일반 정보이며 진단이나 치료를 대신하지 않습니다. 실제 적용 가능성은 산모와 태아의 상태에 따라 달라지므로 전문 태아치료센터 의료진과 상담해야 합니다.

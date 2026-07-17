@@ -5,6 +5,8 @@ description: "신장 조직 재생 연구가 어떤 가능성을 갖는지, 환�
 tags: ["신장연구","만성콩팥병","재생의학","환자교육"]
 thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"
 slug: "auto-developing-kidneys-from-scratch"
+status: "draft"
+review_note: "원문 URL과 자료 검토 기록이 없어 근거를 보완하기 전까지 비공개"
 ---
 
 실험실에서 신장 조직을 만들거나 배양하는 연구는 만성 콩팥병 환자와 가족에게 큰 희망을 줍니다. 다만 이런 연구가 곧바로 실제 치료로 이어지는 것은 아닙니다. 기대와 한계를 함께 이해하는 태도가 필요합니다.

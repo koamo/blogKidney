@@ -6,6 +6,9 @@ tags: ["신장이식", "투석", "만성콩팥병", "환자교육"]
 thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"
 slug: "auto-first-e-star-annual-report-offers"
 status: "published"
+content_type: "reviewed-research"
+editorial_value: "미국 보고서의 수치를 한국 환자에게 그대로 적용하지 않도록 조사 범위와 이식 평가 단계별 질문을 함께 정리했습니다."
+reviewed_by: "KidneyLife 자료 편집부"
 source_name: "Medical Xpress"
 source_title: "First E-STAR annual report offers unprecedented view of early access to kidney transplantation"
 source_url: "https://medicalxpress.com/news/2026-07-star-annual-unprecedented-view-early.html"
@@ -35,6 +38,12 @@ E-STAR 자료에는 미국 13개 주의 37개 이식센터와 4개 말기신장�
 이 자료만으로 특정 환자의 지연 원인을 판단할 수는 없습니다. 이식 가능 여부는 건강 상태, 검사 결과, 센터 기준과 장기 배정 절차 등 여러 조건의 영향을 받습니다. 보고서의 수치는 미국 의료 체계 안에서 "어느 단계에서 환자가 많이 멈추는가"를 찾기 위한 지표에 가깝습니다.
 
 투석 중 이식 평가를 고려하고 있다면 인터넷의 평균 수치보다 본인의 의뢰 상태, 필요한 검사, 다음 단계가 무엇인지 담당 신장내과와 이식센터에 확인하는 편이 정확합니다.
+
+## 진료실에서 확인할 질문
+
+보고서의 평균값을 자신의 일정표처럼 받아들이기보다는 현재 단계부터 확인하는 것이 실용적입니다. 신장내과에는 이식센터 의뢰가 접수됐는지, 추가로 관리해야 할 건강 문제가 있는지 물을 수 있습니다. 이식센터에는 첫 평가 전에 준비할 검사와 서류, 연락이 지연될 때 확인할 창구, 평가 후 다음 결정까지의 절차를 문의할 수 있습니다.
+
+대기자 등록 전에도 검사 결과와 연락처가 바뀌면 의료진에게 알려야 할 수 있습니다. 병원별 절차가 다르므로 인터넷에서 본 다른 환자의 기간과 직접 비교하기보다, 본인의 진행 상태를 날짜별로 기록해 다음 방문 때 확인하는 편이 낫습니다. 이 질문 목록은 이식 가능 여부를 스스로 판단하기 위한 것이 아니라 의료진과의 상담에서 빠뜨리기 쉬운 절차를 확인하기 위한 것입니다.
 
 ## 참고 자료
 

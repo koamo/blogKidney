@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">투석 방식을 상담할 때 확인할 조건</title>
+  <desc id="desc">혈액투석과 복막투석을 의료 조건과 생활 조건으로 함께 비교하는 질문 중심 안내 그림</desc>
+  <rect width="1200" height="630" fill="#f7f9f8"/>
+  <text x="75" y="100" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#173b4d">투석 선택은 장단점 표보다 질문에서 시작합니다</text>
+  <rect x="75" y="160" width="440" height="310" rx="8" fill="#dcefeb" stroke="#9dc6bc" stroke-width="3"/>
+  <circle cx="160" cy="245" r="48" fill="#16746e"/>
+  <path d="M133 245h54M160 218v54" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <text x="230" y="235" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#173b4d">의료 조건</text>
+  <text x="230" y="280" font-family="Arial, sans-serif" font-size="23" fill="#345d69">건강 상태 · 통로 · 감염 위험</text>
+  <path d="M130 355h330M130 400h260" stroke="#79a9a0" stroke-width="16" stroke-linecap="round"/>
+  <rect x="685" y="160" width="440" height="310" rx="8" fill="#fde7dc" stroke="#e5b39d" stroke-width="3"/>
+  <circle cx="770" cy="245" r="48" fill="#d96b4b"/>
+  <path d="M744 245h52M770 219v52" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <text x="840" y="235" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#173b4d">생활 조건</text>
+  <text x="840" y="280" font-family="Arial, sans-serif" font-size="23" fill="#345d69">일정 · 집 환경 · 가족 지원</text>
+  <path d="M740 355h330M740 400h260" stroke="#d9a48d" stroke-width="16" stroke-linecap="round"/>
+  <path d="M515 315h170" stroke="#2d6174" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="600" cy="315" r="42" fill="#ffffff" stroke="#2d6174" stroke-width="6"/>
+  <text x="587" y="332" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#2d6174">?</text>
+  <text x="215" y="555" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#2f6049">가능한 선택지를 의료진과 확인하고, 실제 하루 일정을 그려보세요</text>
+</svg>

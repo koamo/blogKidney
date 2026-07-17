@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: '소개',
-  description: 'KidneyLife의 운영 목적, 자료 검토 원칙, 의학 정보의 한계를 안내합니다.',
+  description: 'KidneyLife의 운영 주체, 콘텐츠 범위, 자료 검토 방식과 의료 정보의 한계를 안내합니다.',
   alternates: { canonical: '/ko/about' },
 };
 
@@ -11,20 +12,30 @@ interface PageProps {
 }
 
 export default async function AboutPage({ params }: PageProps) {
-  await params;
+  const { lang = 'ko' } = await params;
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'admin@goldenlog.tech';
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16 prose prose-invert">
+    <div className="prose mx-auto max-w-3xl px-5 py-12 md:py-16">
       <h1>KidneyLife 소개</h1>
-      <p>KidneyLife는 신장 건강과 만성 콩팥병 생활 관리 정보를 쉽게 풀어 쓰는 건강 정보 블로그입니다.</p>
-      <p>글을 작성할 때는 공개된 자료와 제품 문서를 바탕으로 핵심 내용을 정리하고, 확인되지 않은 수치나 개인 경험은 사실처럼 쓰지 않는 것을 원칙으로 합니다.</p>
-      <h2>운영 정보</h2>
+      <p>KidneyLife는 개인이 운영하는 신장 건강 정보 편집 블로그입니다. 신장 검사, 만성 콩팥병, 투석과 이식에 관한 공개 자료를 환자와 가족이 확인하기 쉬운 언어로 재구성합니다.</p>
+
+      <h2>무엇을 제공하나요</h2>
+      <p>공식 기관의 환자 안내와 연구 원문을 우선해 검사표를 읽는 방법, 진료 전에 준비할 질문, 새로운 연구의 적용 범위를 설명합니다. 단순 번역이나 RSS 요약에 머물지 않도록 독자가 실제로 확인할 항목과 자료의 한계를 함께 적습니다.</p>
+
+      <h2>의료진 감수와 자료 검토는 다릅니다</h2>
+      <p>사이트에 표시된 “자료 편집 검토”는 출처, 연구 단계, 과장 표현과 공개 기준을 점검했다는 뜻입니다. 의사나 임상영양사의 전문적인 의학 감수를 뜻하지 않습니다. 향후 전문의 감수가 이뤄진 글은 감수자, 자격과 검토 범위를 해당 글에 별도로 표시합니다.</p>
+
+      <h2>운영 및 문의</h2>
       <ul>
-        <li>사이트: https://kidney-life.vercel.app</li>
-        <li>문의: contact@kidney-life.vercel.app</li>
-        <li>운영 위치: Seoul, South Korea</li>
+        <li>운영 주체: KidneyLife 개인 운영자</li>
+        <li>운영 언어: 한국어</li>
+        <li>콘텐츠 문의·정정 요청: <a href={`mailto:${contactEmail}`}>{contactEmail}</a></li>
       </ul>
-      <p className="text-sm text-slate-500">Last updated: July 2026</p>
+      <p>정정 요청에는 해당 글 주소, 문제가 된 문장과 확인 가능한 근거를 함께 보내 주세요. 검토 결과에 따라 본문과 자료 검토일을 갱신합니다.</p>
+
+      <p><Link href={`/${lang}/editorial-policy`}>편집·정정 원칙 자세히 보기</Link></p>
+      <p className="text-sm text-[#718287]">최종 갱신: 2026년 7월 18일</p>
     </div>
   );
 }

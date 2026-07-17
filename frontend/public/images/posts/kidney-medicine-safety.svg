@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">신장질환 약과 영양제 목록 점검</title>
+  <desc id="desc">처방약, 일반약, 영양제, 한약을 한 목록으로 합쳐 의료진과 약사에게 확인하는 안내 그림</desc>
+  <rect width="1200" height="630" fill="#f6f9f8"/>
+  <text x="80" y="105" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#173b4d">먹는 제품은 모두 한 목록에</text>
+  <rect x="80" y="155" width="700" height="390" rx="8" fill="#ffffff" stroke="#c6d5d0" stroke-width="3"/>
+  <g font-family="Arial, sans-serif" font-size="27" fill="#173b4d">
+    <rect x="125" y="205" width="34" height="34" rx="4" fill="#16746e"/>
+    <path d="M133 222l8 8 14-18" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="185" y="232" font-weight="700">병원 처방약</text>
+    <rect x="125" y="285" width="34" height="34" rx="4" fill="#d96b4b"/>
+    <path d="M133 302l8 8 14-18" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="185" y="312" font-weight="700">진통제와 감기약</text>
+    <rect x="125" y="365" width="34" height="34" rx="4" fill="#d4a938"/>
+    <path d="M133 382l8 8 14-18" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="185" y="392" font-weight="700">비타민과 영양제</text>
+    <rect x="125" y="445" width="34" height="34" rx="4" fill="#2d6174"/>
+    <path d="M133 462l8 8 14-18" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="185" y="472" font-weight="700">한약과 농축액</text>
+  </g>
+  <path d="M835 290c0-85 70-155 155-155s155 70 155 155-70 155-155 155-155-70-155-155z" fill="#dcefeb"/>
+  <path d="M920 250h140v80H920z" fill="#ffffff" stroke="#16746e" stroke-width="6"/>
+  <path d="M955 250v80M1025 250v80" stroke="#16746e" stroke-width="5"/>
+  <circle cx="990" cy="290" r="20" fill="#d96b4b"/>
+  <text x="868" y="500" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#2f6049">의료진·약사와 함께 확인</text>
+  <text x="80" y="590" font-family="Arial, sans-serif" font-size="24" fill="#4b6671">인터넷 목록으로 임의 중단하지 말고 성분·용량·복용 이유를 기록하세요</text>
+</svg>

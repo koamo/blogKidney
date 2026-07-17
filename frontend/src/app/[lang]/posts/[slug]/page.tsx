@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AdSenseUnit from '@/components/AdSenseUnit';
-import MedicalDisclaimer from '@/components/MedicalDisclaimer';
 import AuthorBio from '@/components/AuthorBio';
-// Next.js 내부 데이터 저장소에 파이썬이 다국어 번역 적재해 놓은 posts.json 로드
+import MedicalDisclaimer from '@/components/MedicalDisclaimer';
 import postsData from '@/data/posts.json';
+
 interface BlogPost {
   title: string;
   date: string;
@@ -16,50 +16,42 @@ interface BlogPost {
   slug: string;
   lang: string;
   content: string;
+  contentType?: string;
+  editorialValue?: string;
   sourceName?: string;
   sourceTitle?: string;
   sourceUrl?: string;
   sourcePublishedAt?: string;
+  primarySourceName?: string;
+  primarySourceTitle?: string;
+  primarySourceUrl?: string;
+  reviewedBy?: string;
   reviewedAt?: string;
 }
-// Next.js 16+ 비동기 Params 컴포넌트 프롭스 규격 (언어 및 슬러그 동시 인자 수집)
+
 interface PageProps {
-  params: Promise<{
-    lang: string;
-    slug: string;
-  }>;
+  params: Promise<{ lang: string; slug: string }>;
 }
-/**
- * 1. [다차원 SSG 핵심]: 지원 언어(ko/en/ja)와 각 기사의 슬러그를 복합 맵핑하여
- *    총 3 x 3 = 9개의 물리 정적 HTML 상세 페이지를 선제 컴파일하는 로직
- */
+
 export async function generateStaticParams() {
   const posts = postsData as BlogPost[];
-  return posts.map((post) => ({
-    lang: post.lang,
-    slug: post.slug,
-  }));
+  return posts.map((post) => ({ lang: post.lang, slug: post.slug }));
 }
-/**
- * 2. 각 국가 크롤러에게 언어별 메타태그를 동적으로 주입하는 글로벌 SEO 최적화 로직
- */
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const posts = postsData as BlogPost[];
-  const post = posts.find(
-    (p) => p.slug === resolvedParams.slug && p.lang === resolvedParams.lang
-  );
-  if (!post) {
-    return {
-      title: 'Not Found',
-    };
-  }
+  const post = posts.find((item) => item.slug === resolvedParams.slug && item.lang === resolvedParams.lang);
+
+  if (!post) return { title: '글을 찾을 수 없습니다' };
+
   const canonicalPath = `/${resolvedParams.lang}/posts/${post.slug}`;
   return {
     title: post.title,
     description: post.description,
     alternates: { canonical: canonicalPath },
     keywords: post.tags,
+    authors: [{ name: 'KidneyLife 자료 편집부' }],
     openGraph: {
       title: post.title,
       description: post.description,
@@ -67,27 +59,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'article',
       publishedTime: post.date,
       modifiedTime: post.reviewedAt || post.date,
-      authors: ['KidneyLife'],
+      authors: ['KidneyLife 자료 편집부'],
       tags: post.tags,
       images: post.thumbnail ? [{ url: post.thumbnail, alt: post.title }] : undefined,
     },
   };
 }
-/**
- * 다국어 블로그 상세 기사 페이지 렌더러 컴포넌트입니다.
- */
+
+function contentTypeLabel(contentType?: string) {
+  if (contentType === 'patient-guide') return '환자 안내';
+  if (contentType === 'reviewed-research') return '연구 검토';
+  if (contentType === 'reference') return '참고 자료';
+  return '건강 정보';
+}
+
 export default async function PostDetailPage({ params }: PageProps) {
   const resolvedParams = await params;
   const lang = resolvedParams.lang || 'ko';
-  const slug = resolvedParams.slug;
-  // 1차 필터링: postsData에서 현재 접속 언어(lang)와 슬러그(slug)에 완벽하게 일치하는 기사 필터링
   const posts = postsData as BlogPost[];
-  const post = posts.find((p) => p.slug === slug && p.lang === lang);
-  if (!post) {
-    notFound();
-  }
+  const post = posts.find((item) => item.slug === resolvedParams.slug && item.lang === lang);
+  if (!post) notFound();
+
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kidney-life.vercel.app';
   const articleUrl = new URL(`/${lang}/posts/${post.slug}`, baseUrl).toString();
+  const citations = [post.primarySourceUrl, post.sourceUrl].filter(Boolean);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -98,90 +93,60 @@ export default async function PostDetailPage({ params }: PageProps) {
     inLanguage: 'ko-KR',
     mainEntityOfPage: articleUrl,
     image: post.thumbnail || undefined,
-    author: { '@type': 'Organization', name: 'KidneyLife' },
+    author: { '@type': 'Organization', name: 'KidneyLife 자료 편집부' },
     publisher: { '@type': 'Organization', name: 'KidneyLife' },
-    isBasedOn: post.sourceUrl || undefined,
+    citation: citations.length ? citations : undefined,
   };
-  // 2차 다국어 번역 보조 문구 사전 (UI 다국어화)
-  const translations = {
-    ko: {
-      back: '← 글 목록으로',
-      by: '작성'
-    },
-    en: {
-      back: '← Back to all articles',
-      by: 'By',
-    },
-    ja: {
-      back: '← 記事一覧に戻る',
-      by: '著者',
-    }
-  };
-  const t = translations[lang as 'ko' | 'en' | 'ja'] || translations.ko;
+
   return (
-    <article className="mx-auto max-w-4xl px-6 py-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
-      />
-      {/* 럭셔리 트랜지션 뒤로가기 링크 (현재 접속 언어 목록으로 안전 백) */}
-      <Link
-        href={`/${lang}`}
-        className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-violet-400 transition-colors mb-8 group focus:outline-none"
-      >
-        <span className="inline-block transition-transform group-hover:-translate-x-1 duration-200">←</span>
-        {t.back}
-      </Link>
-      {/* 기사 헤더 및 메타데이터 영역 */}
-      <header className="mb-8 pb-8 border-b border-slate-800/60">
-        {/* 태그 리스트 */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded bg-violet-600/10 border border-violet-500/20 px-2.5 py-0.5 text-xs text-violet-300 font-semibold"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
-        {/* 아티클 대형 헤드라인 */}
-        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight font-['Outfit']">
-          {post.title}
-        </h1>
-        {/* 날짜 및 작성자 표시 */}
-        <div className="flex items-center gap-3 text-slate-500 text-sm">
-          <span className="font-semibold text-slate-400">{t.by} KidneyLife</span>
-          <span>·</span>
-          <span>{post.date}</span>
-          {post.sourceUrl && (
-            <>
-              <span>·</span>
-              <a href={post.sourceUrl} target="_blank" rel="noreferrer" className="hover:text-emerald-300">
-                원문 확인
-              </a>
-            </>
-          )}
-        </div>
+    <article className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
+      <Link href={`/${lang}/archive`} className="text-sm font-semibold text-[#176d68] underline underline-offset-4">← 전체 글</Link>
+
+      <header className="mt-8 border-b border-[#d8e1dd] pb-8">
+        <p className="text-xs font-bold text-[#b05237]">{contentTypeLabel(post.contentType)}</p>
+        <h1 className="mt-4 text-3xl font-bold leading-tight text-[#17313a] md:text-4xl">{post.title}</h1>
+        <p className="mt-5 text-base leading-7 text-[#5b7076]">{post.description}</p>
+        <dl className="mt-6 grid gap-2 text-sm text-[#66797e] sm:grid-cols-2">
+          <div><dt className="inline font-semibold text-[#304b53]">발행 </dt><dd className="inline">{post.date}</dd></div>
+          <div><dt className="inline font-semibold text-[#304b53]">자료 검토 </dt><dd className="inline">{post.reviewedAt || post.date}</dd></div>
+          <div><dt className="inline font-semibold text-[#304b53]">작성 </dt><dd className="inline">KidneyLife 자료 편집부</dd></div>
+          <div><dt className="inline font-semibold text-[#304b53]">검토 </dt><dd className="inline">{post.reviewedBy || 'KidneyLife 자료 편집부'} · 자료 및 출처</dd></div>
+        </dl>
       </header>
-      {/* [시각적 가치 증대] 본문 최상단에 썸네일 고화질 렌더링 (대표 이미지) */}
+
+      {post.editorialValue && (
+        <aside className="mt-7 rounded border border-[#cbded8] bg-[#eaf3f0] p-5">
+          <h2 className="text-sm font-bold text-[#174f4d]">이 글에서 보완한 점</h2>
+          <p className="mt-2 text-sm leading-6 text-[#42615f]">{post.editorialValue}</p>
+        </aside>
+      )}
+
       {post.thumbnail && (
-        <div className="w-full mb-10 overflow-hidden rounded-xl bg-slate-900 border border-slate-800">
-          <Image src={post.thumbnail} alt={post.title} width={1200} height={675} priority sizes="(max-width: 896px) 100vw, 896px" className="h-auto w-full object-cover opacity-90 transition-opacity hover:opacity-100" />
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded border border-[#d5dfda] bg-[#e4ece8]">
+          <Image src={post.thumbnail} alt={post.title} fill priority sizes="(max-width: 768px) 100vw, 768px" className="object-cover" />
         </div>
       )}
-      {/* [본문 상단 광고] 기사 본문 상단 애드센스 배너 영역 */}
-      <AdSenseUnit slot="2000000001" format="auto" />
-      {/* [YMYL 특화] 본문 상단 의학 면책 조항 컴포넌트 삽입 */}
-      <MedicalDisclaimer lang={lang} />
-      {/* [본문 렌더링] 마크다운 번역 HTML 및 수려한 타이포그래피 이식 */}
-      <section
-        className="prose max-w-none my-12"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
-      {/* [YMYL 특화] 본문 하단 저자 프로필 (전문성 부여) */}
+
+      <div className="mt-9"><MedicalDisclaimer lang={lang} /></div>
+
+      <section className="prose max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+
+      {(post.primarySourceUrl || post.sourceUrl) && (
+        <section aria-labelledby="source-details" className="mt-12 rounded border border-[#d5dfda] bg-white p-5">
+          <h2 id="source-details" className="text-base font-bold text-[#17313a]">출처 메타정보</h2>
+          <ul className="mt-3 space-y-3 text-sm leading-6 text-[#526970]">
+            {post.primarySourceUrl && (
+              <li><strong className="text-[#304b53]">1차 자료:</strong> <a href={post.primarySourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-[#176d68] underline underline-offset-4">{post.primarySourceTitle || post.primarySourceName || '원문 확인'}</a></li>
+            )}
+            {post.sourceUrl && (
+              <li><strong className="text-[#304b53]">정리 기준 자료:</strong> <a href={post.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-[#176d68] underline underline-offset-4">{post.sourceTitle || post.sourceName || '자료 확인'}</a></li>
+            )}
+          </ul>
+        </section>
+      )}
+
       <AuthorBio lang={lang} />
-      {/* [본문 하단 광고] 기사 본문 하단 애드센스 배너 영역 */}
       <AdSenseUnit slot="2000000002" format="auto" />
     </article>
   );

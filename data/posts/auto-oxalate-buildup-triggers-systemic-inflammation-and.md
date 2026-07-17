@@ -6,6 +6,9 @@ tags: ["만성콩팥병", "옥살산", "심혈관질환", "신장연구"]
 thumbnail: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=800&q=80"
 slug: "auto-oxalate-buildup-triggers-systemic-inflammation-and"
 status: "published"
+content_type: "reviewed-research"
+editorial_value: "동물실험과 사람 관찰자료를 구분하고, 연구 결과를 임의의 식단 제한이나 치료 변경으로 확대 해석하지 않도록 정리했습니다."
+reviewed_by: "KidneyLife 자료 편집부"
 source_name: "Medical Xpress"
 source_title: "Oxalate buildup triggers systemic inflammation and cardiac damage, study shows"
 source_url: "https://medicalxpress.com/news/2026-07-oxalate-buildup-triggers-inflammation-cardiac.html"
@@ -36,9 +39,15 @@ generated_with: "gemini-2.5-flash, human-reviewed"
 
 이 연구를 근거로 특정 음식을 임의로 끊거나 식단을 크게 바꾸는 것은 적절하지 않습니다. 신장질환 환자의 식사는 결석 종류, 혈액검사, 투석 여부와 영양 상태에 따라 달라질 수 있습니다. 이 논문의 의미는 새로운 염증 기전을 제안했다는 데 있으며, 개인별 식사나 치료 기준을 제시한 연구는 아닙니다.
 
+## 기사 제목보다 먼저 볼 것
+
+이 연구를 읽을 때는 세 가지를 구분해야 합니다. 첫째, 장기 손상과 치료 효과의 핵심 결과는 생쥐 모델에서 나온 것입니다. 둘째, 사람 자료는 특정 환자군에서 수치와 질환의 연관성을 살핀 범위입니다. 셋째, IL-17A를 표적으로 한 치료가 일반적인 만성 콩팥병 환자에게 효과적이고 안전한지는 이 연구만으로 알 수 없습니다.
+
+평소 결석이나 옥살산 문제를 진료받고 있다면 음식 목록 하나만 보고 제한하기보다 결석 성분, 소변검사와 혈액검사, 현재 영양 상태를 의료진에게 확인하는 것이 우선입니다. 식품을 지나치게 제한하면 다른 영양 문제가 생길 수 있으므로 연구 기사만으로 보충제나 처방약을 중단해서도 안 됩니다.
+
 ## 참고 자료
 
 - [Cardiovascular Research, Interleukin-17A mediates cardiorenal injury in oxalate nephropathy](https://doi.org/10.1093/cvr/cvag158)
 - [Medical Xpress, Oxalate buildup triggers systemic inflammation and cardiac damage](https://medicalxpress.com/news/2026-07-oxalate-buildup-triggers-inflammation-cardiac.html)
 
-이 글은 연구 내용을 설명하는 일반 정보입니다. 식사 제한이나 치료 변경은 담당 신장내과 및 임상영양사와 상의해야 합니다.
+이 글은 연구 내용을 설명하는 일반 정보이며 진단이나 치료를 대신하지 않습니다. 식사 제한이나 치료 변경은 담당 신장내과 의료진 및 임상영양사와 상의해야 합니다.

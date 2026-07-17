@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">eGFR과 UACR 검사 결과 기록표</title>
+  <desc id="desc">혈액검사의 eGFR과 소변검사의 UACR을 날짜별 추세로 함께 확인하는 안내 그림</desc>
+  <rect width="1200" height="630" fill="#f7faf9"/>
+  <rect x="70" y="60" width="1060" height="510" rx="8" fill="#ffffff" stroke="#cbd8d3" stroke-width="3"/>
+  <text x="120" y="135" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#153b4a">신장 검사 결과는 함께, 그리고 추세로</text>
+  <rect x="120" y="190" width="400" height="220" rx="8" fill="#dcefeb"/>
+  <circle cx="190" cy="260" r="34" fill="#19756f"/>
+  <path d="M177 258h26M190 245v26" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  <text x="245" y="260" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#153b4a">eGFR</text>
+  <text x="160" y="325" font-family="Arial, sans-serif" font-size="25" fill="#315866">혈액으로 여과 기능 추정</text>
+  <text x="160" y="370" font-family="Arial, sans-serif" font-size="22" fill="#4d6973">한 번의 수치만으로 단정하지 않기</text>
+  <rect x="680" y="190" width="400" height="220" rx="8" fill="#fde7dc"/>
+  <path d="M740 225c30 42 40 60 40 79a40 40 0 1 1-80 0c0-19 10-37 40-79z" fill="#d96b4b"/>
+  <text x="805" y="260" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#153b4a">UACR</text>
+  <text x="720" y="325" font-family="Arial, sans-serif" font-size="25" fill="#315866">소변 알부민 배출 확인</text>
+  <text x="720" y="370" font-family="Arial, sans-serif" font-size="22" fill="#4d6973">필요하면 반복 검사로 확인</text>
+  <path d="M520 300h160" stroke="#2d6174" stroke-width="8" stroke-linecap="round"/>
+  <path d="M650 278l30 22-30 22" fill="none" stroke="#2d6174" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="160,500 300,455 430,475 565,420 700,440 850,385 1040,405" fill="none" stroke="#2f8f61" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="160" y="545" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#2f6049">날짜별 기록을 가져가 의료진과 변화 방향을 확인하세요</text>
+</svg>

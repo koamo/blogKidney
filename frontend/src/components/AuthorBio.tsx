@@ -1,22 +1,20 @@
-import React from 'react';
+import Link from 'next/link';
 
 export default function AuthorBio({ lang = 'ko' }: { lang?: string }) {
-  const t = {
-    name: 'KidneyLife',
-    role: '신장 건강 정보 편집 노트',
-    bio: '만성 콩팥병, 투석, 식이 관리와 관련된 공개 의학 정보를 일반 독자가 이해하기 쉬운 언어로 정리합니다. 모든 글은 진료를 대신하지 않으며 개인별 판단은 담당 의료진과 상의해야 합니다.',
-  };
-
   return (
-    <div data-lang={lang} className="mt-16 flex flex-col gap-4 border-t border-emerald-900/60 pt-8 sm:flex-row sm:items-start">
-      <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-950 text-base font-bold text-emerald-200">
-        KL
+    <section data-lang={lang} aria-label="작성자 정보" className="mt-14 border-t border-[#d8e1dd] pt-7">
+      <div className="flex gap-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-[#dcefeb] text-sm font-bold text-[#176d68]">KL</div>
+        <div>
+          <h2 className="text-base font-bold text-[#17313a]">KidneyLife 자료 편집부</h2>
+          <p className="mt-2 text-sm leading-6 text-[#5b7076]">
+            공식 기관 자료와 연구 원문을 일반 독자가 확인하기 쉽게 재구성합니다. 자료 편집부는 의료기관이 아니며, 전문의 감수가 있는 글은 감수자와 범위를 별도로 표시합니다.
+          </p>
+          <Link href={`/${lang}/editorial-policy`} className="mt-3 inline-block text-sm font-semibold text-[#176d68] underline underline-offset-4">
+            편집·정정 원칙 확인
+          </Link>
+        </div>
       </div>
-      <div>
-        <h4 className="mb-1 text-lg font-bold text-white">{t.name}</h4>
-        <p className="mb-3 text-sm font-semibold text-emerald-300">{t.role}</p>
-        <p className="text-sm leading-relaxed text-slate-300">{t.bio}</p>
-      </div>
-    </div>
+    </section>
   );
 }

@@ -1,157 +1,142 @@
 # -*- coding: utf-8 -*-
-import os
-import json
-import yaml
-import markdown
 import hashlib
-from datetime import datetime
+import json
+import os
+import sys
 
-# 기본 프로젝트 경로 설정
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /backend 폴더
-BLOG_DIR = os.path.dirname(BASE_DIR)  # 전체 프로젝트 루트 폴더
+import markdown
+import yaml
+
+from content_rules import PUBLICATION_SCHEMA_VERSION, validate_post
+
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BLOG_DIR = os.path.dirname(BASE_DIR)
 POSTS_DIR = os.path.join(BLOG_DIR, "data", "posts")
-
-# 출력물과 캐시 파일 경로
 OUTPUT_FILE = os.path.join(BLOG_DIR, "frontend", "src", "data", "posts.json")
 CACHE_FILE = os.path.join(BLOG_DIR, "data", ".posts_cache.json")
 
+
 def get_file_hash(filepath):
-    """파일의 내용 기반 MD5 해시를 구하여 내용 수정 여부를 감지합니다."""
     hasher = hashlib.md5()
-    with open(filepath, 'rb') as f:
-        buf = f.read()
-        hasher.update(buf)
+    with open(filepath, "rb") as post_file:
+        hasher.update(post_file.read())
     return hasher.hexdigest()
 
+
+def parse_post(filepath):
+    with open(filepath, "r", encoding="utf-8-sig") as post_file:
+        content = post_file.read()
+    if not content.startswith("---"):
+        raise ValueError("YAML frontmatter is missing")
+    parts = content.split("---", 2)
+    if len(parts) < 3:
+        raise ValueError("YAML frontmatter is not closed")
+    metadata = yaml.safe_load(parts[1]) or {}
+    if not isinstance(metadata, dict):
+        raise ValueError("YAML frontmatter must be an object")
+    return metadata, parts[2].strip()
+
+
 def build_blog_data():
-    posts = []
-    
-    if not os.path.exists(POSTS_DIR):
-        print(f"[ERROR] 포스트 디렉토리를 찾을 수 없습니다: '{POSTS_DIR}'")
-        return
-        
-    # 캐시 데이터 불러오기
+    if not os.path.isdir(POSTS_DIR):
+        raise SystemExit(f"[ERROR] Posts directory does not exist: {POSTS_DIR}")
+
     cache = {}
     if os.path.exists(CACHE_FILE):
         try:
-            with open(CACHE_FILE, "r", encoding="utf-8") as cf:
-                cache = json.load(cf)
-            print(f"[INFO] 기존 캐시 로드 성공 ({len(cache)}개 파일 캐시됨)")
-        except Exception as e:
-            print(f"[WARNING] 캐시 파일 로드 실패: {e}")
+            with open(CACHE_FILE, "r", encoding="utf-8") as cache_file:
+                cache = json.load(cache_file)
+        except (OSError, ValueError):
             cache = {}
 
-    print(f"[INFO] 블로그 정적 포스트 컴파일 작업 시작 (한국어 전용, 경로: {POSTS_DIR})")
-    
-    markdown_files = [f for f in os.listdir(POSTS_DIR) if f.endswith(".md")]
+    posts = []
     new_cache = {}
+    build_errors = []
 
-    # 모든 마크다운 파일을 순회
-    for filename in markdown_files:
+    for filename in sorted(name for name in os.listdir(POSTS_DIR) if name.endswith(".md")):
         filepath = os.path.join(POSTS_DIR, filename)
         file_hash = get_file_hash(filepath)
-        
-        # 캐시 구조가 현재 스키마와 일치할 때만 재사용합니다.
-        if (
-            filename in cache
-            and cache[filename].get("hash") == file_hash
-            and cache[filename].get("schema_version") == 2
-        ):
-            print(f"[CACHE HIT] '{filename}' 변경 없음. 캐시 데이터 사용.")
-            posts.extend(cache[filename]["posts"])
-            new_cache[filename] = cache[filename]
-            continue
-            
-        print(f"[COMPILE] '{filename}' 신규/변경 감지. 컴파일 수행.")
-        
-        with open(filepath, "r", encoding="utf-8") as f:
-            content = f.read()
-            
-        if content.startswith("---"):
-            parts = content.split("---", 2)
-            if len(parts) >= 3:
-                frontmatter_text = parts[1]
-                markdown_text = parts[2]
-            else:
-                frontmatter_text = ""
-                markdown_text = content
-        else:
-            frontmatter_text = ""
-            markdown_text = content
-            
-        meta = {}
-        if frontmatter_text.strip():
-            try:
-                meta = yaml.safe_load(frontmatter_text)
-            except Exception as e:
-                print(f"[WARNING] '{filename}' YAML 파싱 오류: {e}")
-                
-        title = meta.get("title", os.path.splitext(filename)[0])
-        date = meta.get("date", datetime.now().strftime("%Y-%m-%d"))
-        description = meta.get("description", "")
-        tags = meta.get("tags", [])
-        thumbnail = meta.get("thumbnail", "")
-        slug = meta.get("slug", os.path.splitext(filename)[0])
-        status = str(meta.get("status", "published")).lower()
+        cached = cache.get(filename, {})
 
+        if cached.get("hash") == file_hash and cached.get("schema_version") == PUBLICATION_SCHEMA_VERSION:
+            posts.extend(cached.get("posts", []))
+            new_cache[filename] = cached
+            continue
+
+        try:
+            metadata, markdown_text = parse_post(filepath)
+        except (OSError, ValueError, yaml.YAMLError) as exc:
+            build_errors.append(f"{filename}: {exc}")
+            continue
+
+        status = str(metadata.get("status", "draft")).strip().lower()
         if status != "published":
-            print(f"  [SKIP] 검토 전 초안 제외: {slug} ({status})")
+            print(f"[SKIP] {filename}: status={status or 'missing'}")
             new_cache[filename] = {
-                "schema_version": 2,
+                "schema_version": PUBLICATION_SCHEMA_VERSION,
                 "hash": file_hash,
                 "posts": [],
             }
             continue
-        
-        try:
-            html_content = markdown.markdown(
-                markdown_text, 
-                extensions=['fenced_code', 'tables', 'nl2br']
-            )
-            
-            post_data = {
-                "title": title,
-                "date": str(date),
-                "description": description,
-                "tags": tags,
-                "thumbnail": thumbnail,
-                "slug": slug,
-                "lang": "ko",
-                "content": html_content,
-                "status": status,
-                "sourceName": meta.get("source_name", ""),
-                "sourceTitle": meta.get("source_title", ""),
-                "sourceUrl": meta.get("source_url", ""),
-                "sourcePublishedAt": str(meta.get("source_published_at", "")),
-                "reviewedAt": str(meta.get("reviewed_at", "")),
-            }
-            
-            file_posts = [post_data]
-            posts.extend(file_posts)
-            new_cache[filename] = {
-                "schema_version": 2,
-                "hash": file_hash,
-                "posts": file_posts
-            }
-            print(f"  [OK] 컴파일 성공: {slug}")
-            
-        except Exception as e:
-            print(f"  [ERROR] 컴파일 실패: {filename}: {e}")
-                
-    # 날짜 기준으로 내림차순 정렬
-    posts.sort(key=lambda x: x["date"], reverse=True)
-    
-    # JSON 파일 최종 출력
+
+        validation_errors = validate_post(metadata, markdown_text)
+        if validation_errors:
+            build_errors.extend(f"{filename}: {message}" for message in validation_errors)
+            continue
+
+        html_content = markdown.markdown(markdown_text, extensions=["fenced_code", "tables", "nl2br"])
+        post_data = {
+            "title": metadata["title"],
+            "date": str(metadata["date"]),
+            "description": metadata["description"],
+            "tags": metadata["tags"],
+            "thumbnail": metadata["thumbnail"],
+            "slug": metadata["slug"],
+            "lang": "ko",
+            "content": html_content,
+            "status": status,
+            "contentType": metadata.get("content_type", ""),
+            "editorialValue": metadata.get("editorial_value", ""),
+            "sourceName": metadata.get("source_name", ""),
+            "sourceTitle": metadata.get("source_title", ""),
+            "sourceUrl": metadata.get("source_url", ""),
+            "sourcePublishedAt": str(metadata.get("source_published_at", "")),
+            "primarySourceName": metadata.get("primary_source_name", ""),
+            "primarySourceTitle": metadata.get("primary_source_title", ""),
+            "primarySourceUrl": metadata.get("primary_source_url", ""),
+            "reviewedBy": metadata.get("reviewed_by", ""),
+            "reviewedAt": str(metadata.get("reviewed_at", "")),
+        }
+        file_posts = [post_data]
+        posts.extend(file_posts)
+        new_cache[filename] = {
+            "schema_version": PUBLICATION_SCHEMA_VERSION,
+            "hash": file_hash,
+            "posts": file_posts,
+        }
+        print(f"[OK] {filename}: {metadata['slug']}")
+
+    if build_errors:
+        for message in build_errors:
+            print(f"[ERROR] {message}")
+        raise SystemExit(f"[FAILED] Publication gate rejected {len(build_errors)} issue(s).")
+
+    posts.sort(key=lambda item: item["date"], reverse=True)
+
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(posts, f, ensure_ascii=False, indent=2)
-        
-    # 캐시 파일 갱신
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as output_file:
+        json.dump(posts, output_file, ensure_ascii=False, indent=2)
+
     os.makedirs(os.path.dirname(CACHE_FILE), exist_ok=True)
-    with open(CACHE_FILE, "w", encoding="utf-8") as cf:
-        json.dump(new_cache, cf, ensure_ascii=False, indent=2)
-        
-    print(f"\n[COMPLETE] 총 {len(posts)}개의 기사가 '{OUTPUT_FILE}' 파일로 컴파일되었습니다!")
+    with open(CACHE_FILE, "w", encoding="utf-8") as cache_file:
+        json.dump(new_cache, cache_file, ensure_ascii=False, indent=2)
+
+    print(f"[COMPLETE] Built {len(posts)} published post(s): {OUTPUT_FILE}")
+
 
 if __name__ == "__main__":
     build_blog_data()
