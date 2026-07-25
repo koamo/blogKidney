@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">만성콩팥병 식사 상담 기록</title>
+  <desc id="desc">검사, 실제 식사, 복용 제품, 생활 조건과 질문을 영양 상담 전에 준비하는 그림</desc>
+  <rect width="1200" height="630" fill="#f7faf9"/>
+  <rect x="70" y="65" width="1060" height="500" rx="8" fill="#ffffff" stroke="#cbd8d3" stroke-width="3"/>
+  <text x="120" y="140" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#17313a">식사 상담은 금지표보다 실제 기록부터</text>
+  <rect x="120" y="190" width="410" height="300" rx="8" fill="#eaf1ee"/>
+  <circle cx="325" cy="340" r="112" fill="#ffffff" stroke="#2d6174" stroke-width="8"/>
+  <path d="M325 230a110 110 0 0 1 94 53l-94 57z" fill="#dcefeb"/>
+  <path d="M419 283a110 110 0 0 1-18 131l-76-74z" fill="#fde7dc"/>
+  <path d="M401 414a110 110 0 0 1-158 4l82-78z" fill="#cfe6d7"/>
+  <path d="M243 418a110 110 0 0 1-12-135l94 57z" fill="#fff0d8"/>
+  <path d="M231 283a110 110 0 0 1 94-53v110z" fill="#d9e5ef"/>
+  <rect x="600" y="190" width="460" height="300" rx="8" fill="#fffaf6" stroke="#eed8cb" stroke-width="2"/>
+  <path d="M645 250h370M645 305h370M645 360h370M645 415h370" stroke="#d4dcd9" stroke-width="3"/>
+  <circle cx="670" cy="225" r="12" fill="#176d68"/>
+  <circle cx="670" cy="280" r="12" fill="#2d6174"/>
+  <circle cx="670" cy="335" r="12" fill="#d96b4b"/>
+  <circle cx="670" cy="390" r="12" fill="#b5893f"/>
+  <text x="700" y="234" font-family="Arial, sans-serif" font-size="22" fill="#17313a">검사 결과 추세</text>
+  <text x="700" y="289" font-family="Arial, sans-serif" font-size="22" fill="#17313a">평소 식사와 양</text>
+  <text x="700" y="344" font-family="Arial, sans-serif" font-size="22" fill="#17313a">약·영양제 성분</text>
+  <text x="700" y="399" font-family="Arial, sans-serif" font-size="22" fill="#17313a">조리·비용·근무 조건</text>
+  <text x="120" y="535" font-family="Arial, sans-serif" font-size="24" fill="#49636a">칼륨·인·단백질·수분 목표는 검사와 치료에 맞춰 확인하세요</text>
+</svg>

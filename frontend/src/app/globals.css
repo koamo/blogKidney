@@ -147,3 +147,93 @@
   font-size: inherit;
   padding: 0;
 }
+
+.record-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.record-table th,
+.record-table td {
+  border: 1px solid #bfcfc9;
+  height: 3.25rem;
+  padding: 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.record-table thead th,
+.record-table tbody th {
+  background: #eaf1ee;
+  color: #17313a;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.record-box {
+  border: 1px solid #cbd8d3;
+  min-height: 10rem;
+  padding: 1rem;
+}
+
+.record-box h3 {
+  color: #17313a;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.record-box p,
+.record-box li {
+  color: #526970;
+  font-size: 0.85rem;
+  line-height: 2.2;
+}
+
+.record-box ol {
+  list-style: decimal;
+  margin: 0.75rem 0 0 1.3rem;
+}
+
+.write-lines {
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 1.9rem, #cbd8d3 1.95rem);
+  height: 5.9rem;
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+    size: A4 landscape;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    display: block !important;
+  }
+
+  .print-sheet {
+    border: 0 !important;
+    break-after: page;
+    min-height: 175mm;
+    padding: 0 !important;
+  }
+
+  .print-sheet:last-child {
+    break-after: auto;
+  }
+
+  .record-table th,
+  .record-table td {
+    border-color: #777;
+  }
+}

@@ -14,8 +14,8 @@ export default function Header({ lang = 'ko' }: HeaderProps) {
         </Link>
         <nav aria-label="주요 메뉴" className="flex items-center gap-4 text-xs font-semibold text-[#4e656c] sm:gap-6 sm:text-sm">
           <Link href={`/${lang}/archive`} className="hover:text-[#176d68]">전체 글</Link>
+          <Link href={`/${lang}/resources`} className="hover:text-[#176d68]">기록 양식</Link>
           <Link href={`/${lang}/about`} className="hover:text-[#176d68]">소개</Link>
-          <Link href={`/${lang}/editorial-policy`} className="hover:text-[#176d68]">편집 원칙</Link>
         </nav>
       </div>
     </header>

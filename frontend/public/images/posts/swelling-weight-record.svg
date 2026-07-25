@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">부종과 체중 변화 기록</title>
+  <desc id="desc">발목의 좌우 변화와 체중, 동반 증상을 날짜별로 기록하는 그림</desc>
+  <rect width="1200" height="630" fill="#f7faf9"/>
+  <rect x="70" y="65" width="1060" height="500" rx="8" fill="#ffffff" stroke="#cbd8d3" stroke-width="3"/>
+  <text x="120" y="140" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#17313a">부종은 위치·시간·동반 증상으로 기록</text>
+  <rect x="120" y="190" width="280" height="285" rx="8" fill="#dcefeb"/>
+  <path d="M210 230v120c0 42-25 49-50 66-18 12-7 32 17 32h145c30 0 41-36 13-48l-52-22V230z" fill="#f7faf9" stroke="#2d6174" stroke-width="8"/>
+  <path d="M205 350h86" stroke="#d96b4b" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="335" cy="245" r="30" fill="#d96b4b"/>
+  <text x="326" y="256" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#fff">!</text>
+  <rect x="455" y="190" width="250" height="285" rx="8" fill="#fff6ef"/>
+  <path d="M520 385h120l-12-115h-96z" fill="#ffffff" stroke="#b05237" stroke-width="8"/>
+  <circle cx="580" cy="320" r="42" fill="#fde7dc" stroke="#b05237" stroke-width="6"/>
+  <path d="M580 320l22-21" stroke="#b05237" stroke-width="7" stroke-linecap="round"/>
+  <text x="510" y="430" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#17313a">같은 조건의 체중</text>
+  <rect x="760" y="190" width="300" height="285" rx="8" fill="#eaf1ee"/>
+  <path d="M800 250h220M800 305h220M800 360h220M800 415h220" stroke="#b7c9c2" stroke-width="3"/>
+  <circle cx="825" cy="225" r="12" fill="#176d68"/>
+  <circle cx="825" cy="280" r="12" fill="#2d6174"/>
+  <circle cx="825" cy="335" r="12" fill="#d96b4b"/>
+  <text x="855" y="234" font-family="Arial, sans-serif" font-size="22" fill="#17313a">좌우 차이</text>
+  <text x="855" y="289" font-family="Arial, sans-serif" font-size="22" fill="#17313a">숨참·소변</text>
+  <text x="855" y="344" font-family="Arial, sans-serif" font-size="22" fill="#17313a">약·식사 변화</text>
+  <text x="120" y="525" font-family="Arial, sans-serif" font-size="24" fill="#49636a">붓기만으로 원인을 단정하거나 물·약을 스스로 조절하지 마세요</text>
+</svg>

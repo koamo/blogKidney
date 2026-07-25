@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import AdSenseScript from '@/components/AdSenseScript';
 import AdSenseUnit from '@/components/AdSenseUnit';
 import AuthorBio from '@/components/AuthorBio';
 import MedicalDisclaimer from '@/components/MedicalDisclaimer';
@@ -27,6 +28,7 @@ interface BlogPost {
   primarySourceUrl?: string;
   reviewedBy?: string;
   reviewedAt?: string;
+  creationNote?: string;
 }
 
 interface PageProps {
@@ -51,7 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: post.description,
     alternates: { canonical: canonicalPath },
     keywords: post.tags,
-    authors: [{ name: 'KidneyLife 자료 편집부' }],
+    authors: [{ name: 'KidneyLife 운영자' }],
     openGraph: {
       title: post.title,
       description: post.description,
@@ -59,7 +61,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'article',
       publishedTime: post.date,
       modifiedTime: post.reviewedAt || post.date,
-      authors: ['KidneyLife 자료 편집부'],
+      authors: ['KidneyLife 운영자'],
       tags: post.tags,
       images: post.thumbnail ? [{ url: post.thumbnail, alt: post.title }] : undefined,
     },
@@ -80,7 +82,7 @@ export default async function PostDetailPage({ params }: PageProps) {
   const post = posts.find((item) => item.slug === resolvedParams.slug && item.lang === lang);
   if (!post) notFound();
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kidney-life.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://blog-kidney.vercel.app';
   const articleUrl = new URL(`/${lang}/posts/${post.slug}`, baseUrl).toString();
   const citations = [post.primarySourceUrl, post.sourceUrl].filter(Boolean);
   const jsonLd = {
@@ -93,13 +95,14 @@ export default async function PostDetailPage({ params }: PageProps) {
     inLanguage: 'ko-KR',
     mainEntityOfPage: articleUrl,
     image: post.thumbnail || undefined,
-    author: { '@type': 'Organization', name: 'KidneyLife 자료 편집부' },
+    author: { '@type': 'Person', name: 'KidneyLife 운영자', url: new URL(`/${lang}/about`, baseUrl).toString() },
     publisher: { '@type': 'Organization', name: 'KidneyLife' },
     citation: citations.length ? citations : undefined,
   };
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+      <AdSenseScript />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
       <Link href={`/${lang}/archive`} className="text-sm font-semibold text-[#176d68] underline underline-offset-4">← 전체 글</Link>
 
@@ -110,10 +113,17 @@ export default async function PostDetailPage({ params }: PageProps) {
         <dl className="mt-6 grid gap-2 text-sm text-[#66797e] sm:grid-cols-2">
           <div><dt className="inline font-semibold text-[#304b53]">발행 </dt><dd className="inline">{post.date}</dd></div>
           <div><dt className="inline font-semibold text-[#304b53]">자료 검토 </dt><dd className="inline">{post.reviewedAt || post.date}</dd></div>
-          <div><dt className="inline font-semibold text-[#304b53]">작성 </dt><dd className="inline">KidneyLife 자료 편집부</dd></div>
-          <div><dt className="inline font-semibold text-[#304b53]">검토 </dt><dd className="inline">{post.reviewedBy || 'KidneyLife 자료 편집부'} · 자료 및 출처</dd></div>
+          <div><dt className="inline font-semibold text-[#304b53]">작성 </dt><dd className="inline"><Link href={`/${lang}/about`} className="underline underline-offset-4">KidneyLife 운영자</Link> · 자료 편집</dd></div>
+          <div><dt className="inline font-semibold text-[#304b53]">검토 </dt><dd className="inline">{post.reviewedBy || 'KidneyLife 운영자'} · 출처 및 표현 점검(의학 감수 아님)</dd></div>
         </dl>
       </header>
+
+      {post.creationNote && (
+        <aside className="mt-7 rounded border border-[#d7dfdc] bg-white p-5">
+          <h2 className="text-sm font-bold text-[#304b53]">작성 과정</h2>
+          <p className="mt-2 text-sm leading-6 text-[#526970]">{post.creationNote}</p>
+        </aside>
+      )}
 
       {post.editorialValue && (
         <aside className="mt-7 rounded border border-[#cbded8] bg-[#eaf3f0] p-5">

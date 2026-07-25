@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">가정 혈압 기록 안내</title>
+  <desc id="desc">위팔 혈압계의 두 측정값과 측정 조건을 기록지에 남기는 그림</desc>
+  <rect width="1200" height="630" fill="#f4f7f5"/>
+  <rect x="70" y="65" width="1060" height="500" rx="8" fill="#ffffff" stroke="#cbd8d3" stroke-width="3"/>
+  <text x="120" y="140" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#17313a">집 혈압은 숫자와 측정 조건을 함께</text>
+  <rect x="120" y="195" width="360" height="260" rx="8" fill="#dcefeb"/>
+  <rect x="185" y="240" width="230" height="150" rx="14" fill="#176d68"/>
+  <rect x="225" y="274" width="150" height="72" rx="5" fill="#f7faf9"/>
+  <text x="248" y="323" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#17313a">1 · 2</text>
+  <path d="M185 360c-70 0-70 105 0 105h110" fill="none" stroke="#2d6174" stroke-width="17" stroke-linecap="round"/>
+  <rect x="585" y="195" width="475" height="270" rx="8" fill="#fff6ef" stroke="#eed8cb" stroke-width="2"/>
+  <path d="M625 260h395M625 315h395M625 370h395M625 425h395" stroke="#c9d5d1" stroke-width="3"/>
+  <circle cx="655" cy="235" r="14" fill="#d96b4b"/>
+  <circle cx="655" cy="290" r="14" fill="#176d68"/>
+  <circle cx="655" cy="345" r="14" fill="#2d6174"/>
+  <text x="690" y="244" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#17313a">같은 시간대</text>
+  <text x="690" y="299" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#17313a">1분 간격 두 번</text>
+  <text x="690" y="354" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#17313a">약·증상 메모</text>
+  <text x="120" y="520" font-family="Arial, sans-serif" font-size="24" fill="#49636a">한 번의 값으로 약을 바꾸지 말고 기록을 의료진과 확인하세요</text>
+</svg>

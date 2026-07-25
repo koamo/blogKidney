@@ -111,7 +111,7 @@ def is_recent_source(source_published_at):
 def fetch_feed(feed):
     response = requests.get(
         feed["url"],
-        headers={"User-Agent": "KidneyLifeFeedCollector/1.0 (+https://kidney-life.vercel.app)"},
+        headers={"User-Agent": "KidneyLifeFeedCollector/1.0 (+https://blog-kidney.vercel.app)"},
         timeout=30,
     )
     response.raise_for_status()
@@ -281,6 +281,7 @@ def write_post(filepath, title, description, slug, thumbnail, body, source, gene
         "status": "draft",
         "content_type": "reviewed-research",
         "editorial_value": "",
+        "creation_note": "",
         "reviewed_by": "",
         "source_name": source["name"],
         "source_title": source["title"],

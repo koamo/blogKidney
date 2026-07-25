@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">신장이식 평가 준비</title>
+  <desc id="desc">상담, 검사, 결과 확인과 다음 행동을 단계별로 정리한 그림</desc>
+  <rect width="1200" height="630" fill="#f4f7f5"/>
+  <rect x="70" y="65" width="1060" height="500" rx="8" fill="#ffffff" stroke="#cbd8d3" stroke-width="3"/>
+  <text x="120" y="140" font-family="Arial, sans-serif" font-size="43" font-weight="700" fill="#17313a">신장이식 평가는 단계와 다음 행동을 기록</text>
+  <path d="M190 320h780" stroke="#b9cbc5" stroke-width="12" stroke-linecap="round"/>
+  <path d="M940 290l45 30-45 30" fill="none" stroke="#b9cbc5" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="210" cy="320" r="72" fill="#dcefeb" stroke="#176d68" stroke-width="7"/>
+  <circle cx="440" cy="320" r="72" fill="#fff6ef" stroke="#b05237" stroke-width="7"/>
+  <circle cx="670" cy="320" r="72" fill="#eaf1ee" stroke="#2d6174" stroke-width="7"/>
+  <circle cx="900" cy="320" r="72" fill="#fde7dc" stroke="#d96b4b" stroke-width="7"/>
+  <text x="167" y="329" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#17313a">상담</text>
+  <text x="397" y="329" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#17313a">검사</text>
+  <text x="614" y="329" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#17313a">결과 확인</text>
+  <text x="845" y="329" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#17313a">다음 행동</text>
+  <rect x="160" y="440" width="880" height="70" rx="6" fill="#f7faf9" stroke="#d6e0dc" stroke-width="2"/>
+  <path d="M205 475l18 18 35-40" fill="none" stroke="#176d68" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="285" y="486" font-family="Arial, sans-serif" font-size="24" fill="#49636a">병력·약 목록·연락 계획을 센터 안내에 맞춰 준비하세요</text>
+</svg>

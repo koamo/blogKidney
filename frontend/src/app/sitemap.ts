@@ -10,9 +10,9 @@ interface BlogPost {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = postsData as BlogPost[];
-  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://kidney-life.vercel.app').replace(/\/$/, '');
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://blog-kidney.vercel.app').replace(/\/$/, '');
 
-  const staticRoutes = ['/ko', '/ko/archive', '/ko/about', '/ko/editorial-policy', '/ko/privacy', '/ko/terms'];
+  const staticRoutes = ['/ko', '/ko/archive', '/ko/resources', '/ko/about', '/ko/editorial-policy', '/ko/privacy', '/ko/terms'];
 
   const routes = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,

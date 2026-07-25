@@ -8,7 +8,8 @@ slug: "ckd-appointment-preparation-checklist"
 status: "published"
 content_type: "patient-guide"
 editorial_value: "공식 환자 안내의 질문 예시를 국내 진료 전에 한 장으로 정리할 수 있도록 검사·약·생활 변화 순서의 체크리스트로 재구성했습니다."
-reviewed_by: "KidneyLife 자료 편집부"
+creation_note: "공식 기관 자료를 바탕으로 AI 보조 초안을 만든 뒤, 개인 운영자가 원문과 대조하고 구조·수치·표현을 재작성했습니다. 의료인의 의학 감수는 받지 않았습니다."
+reviewed_by: "KidneyLife 운영자"
 reviewed_at: "2026-07-18"
 source_name: "NIDDK"
 source_title: "Managing Chronic Kidney Disease"
@@ -65,6 +66,8 @@ NIDDK는 진료 때마다 GFR과 소변 알부민이 이전과 비교해 어떻�
 설명을 들은 뒤에는 “제가 다음 진료까지 해야 할 일은 이것이고, 검사는 이때 받으면 될까요?”라고 다시 확인해 봅니다. 새 약의 목적과 복용법, 중단해야 할 기존 약이 있는지, 다음 예약과 검사 준비를 적습니다. 이해가 안 되는 용어가 있다면 쉬운 말로 다시 설명해 달라고 요청해도 됩니다.
 
 갑자기 심한 증상이 생겼거나 의료기관에서 즉시 평가를 안내한 상황은 체크리스트를 완성한 뒤 기다릴 일이 아닙니다. 해당 의료기관이나 응급의료 안내에 따라 필요한 진료를 우선해야 합니다.
+
+[진료 전 한 장 질문지](/ko/resources#appointment-questions)에는 변화, 우선 질문과 다음 계획을 같은 종이에 적을 수 있습니다.
 
 ## 참고 자료
 

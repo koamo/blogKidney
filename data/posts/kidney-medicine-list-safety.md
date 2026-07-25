@@ -8,7 +8,8 @@ slug: "kidney-medicine-list-safety"
 status: "published"
 content_type: "patient-guide"
 editorial_value: "특정 제품의 복용 여부를 단정하지 않고 처방약·일반약·보충제를 한 목록으로 합쳐 의료진과 약사에게 확인하는 절차를 제시했습니다."
-reviewed_by: "KidneyLife 자료 편집부"
+creation_note: "공식 기관 자료를 바탕으로 AI 보조 초안을 만든 뒤, 개인 운영자가 원문과 대조하고 구조·수치·표현을 재작성했습니다. 의료인의 의학 감수는 받지 않았습니다."
+reviewed_by: "KidneyLife 운영자"
 reviewed_at: "2026-07-18"
 source_name: "NIDDK"
 source_title: "Keeping Kidneys Safe: Smart Choices about Medicines"
@@ -67,6 +68,8 @@ NIDDK는 비스테로이드성 소염진통제(NSAIDs)가 장기간 사용되거
 - 이상 반응이 생기면 복용을 어떻게 하고 어디에 연락해야 하나요?
 
 약사는 전체 복용 목록을 검토하고 잠재적인 중복이나 상호작용을 확인하는 데 도움을 줄 수 있습니다. 최종적인 처방 변경은 처방 의료진과 상의해 진행합니다.
+
+처방약과 일반약을 한 장에 모으려면 [복용 약·영양제 목록](/ko/resources#medicine-list)을 사용할 수 있습니다.
 
 ## 참고 자료
 

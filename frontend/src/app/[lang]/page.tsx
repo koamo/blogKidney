@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import AdSenseScript from '@/components/AdSenseScript';
 import AdSenseUnit from '@/components/AdSenseUnit';
 import postsData from '@/data/posts.json';
 
@@ -60,6 +61,7 @@ export default async function Home({ params }: PageProps) {
 
   return (
     <div>
+      <AdSenseScript />
       <section className="border-b border-[#d8e1dd] bg-white">
         <div className="mx-auto max-w-6xl px-5 py-12 md:py-16">
           <p className="text-xs font-bold text-[#176d68]">KIDNEYLIFE EVIDENCE NOTE</p>
@@ -67,11 +69,11 @@ export default async function Home({ params }: PageProps) {
             신장 건강과 투석 생활 정보
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#526970] md:text-lg">
-            검사표를 읽고 진료 질문을 준비하는 방법부터 투석·이식 연구의 적용 범위까지, 공식 자료와 원문을 바탕으로 정리합니다.
+            검사표를 읽고 증상·약을 기록하는 방법부터 투석과 이식 상담 준비까지, 공식 자료를 바탕으로 차분하게 정리합니다.
           </p>
           <div className="mt-7 flex flex-wrap gap-4 text-sm font-semibold">
             <Link href={`/${lang}/archive`} className="rounded bg-[#176d68] px-5 py-3 text-white hover:bg-[#105653]">전체 글 보기</Link>
-            <Link href={`/${lang}/editorial-policy`} className="px-1 py-3 text-[#176d68] underline underline-offset-4">자료를 검토하는 방법</Link>
+            <Link href={`/${lang}/resources`} className="px-1 py-3 text-[#176d68] underline underline-offset-4">기록 양식 사용하기</Link>
           </div>
         </div>
       </section>
@@ -79,7 +81,7 @@ export default async function Home({ params }: PageProps) {
       <section aria-label="사이트 이용 안내" className="border-b border-[#d8e1dd] bg-[#eaf1ee]">
         <div className="mx-auto grid max-w-6xl gap-5 px-5 py-6 text-sm text-[#405b63] md:grid-cols-3">
           <p><strong className="text-[#17313a]">출처 우선</strong><br />공식 기관과 연구 원문 링크를 함께 표시합니다.</p>
-          <p><strong className="text-[#17313a]">적용 범위 구분</strong><br />동물실험, 관찰자료, 임상시험을 같은 근거로 다루지 않습니다.</p>
+          <p><strong className="text-[#17313a]">과정 공개</strong><br />AI 보조 여부와 운영자가 확인한 범위를 글마다 표시합니다.</p>
           <p><strong className="text-[#17313a]">진료 대체 아님</strong><br />개인별 약·식사·치료는 담당 의료진과 확인해야 합니다.</p>
         </div>
       </section>

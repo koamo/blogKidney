@@ -8,10 +8,11 @@ export default function Footer({ lang = 'ko' }: { lang?: string }) {
           <div>
             <p className="text-sm font-bold text-[#17313a]">KidneyLife</p>
             <p className="mt-2 max-w-xl text-xs leading-5 text-[#66787d]">
-              공개된 공식 자료와 연구 원문을 바탕으로 신장 건강 정보를 정리합니다. 자료 편집 검토는 전문의의 의학적 감수를 뜻하지 않습니다.
+              의료인이 아닌 개인 운영자가 공식 자료와 원문을 바탕으로 신장 건강 정보를 정리합니다. 출처 및 표현 점검은 의료인의 의학 감수를 뜻하지 않습니다.
             </p>
           </div>
           <nav aria-label="정책 문서" className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-[#5a7076]">
+            <Link href={`/${lang}/resources`} className="hover:text-[#176d68]">기록 양식</Link>
             <Link href={`/${lang}/about`} className="hover:text-[#176d68]">소개</Link>
             <Link href={`/${lang}/editorial-policy`} className="hover:text-[#176d68]">편집·정정 원칙</Link>
             <Link href={`/${lang}/privacy`} className="hover:text-[#176d68]">개인정보처리방침</Link>

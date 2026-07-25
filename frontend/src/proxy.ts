@@ -19,6 +19,7 @@ export function proxy(request: NextRequest) {
     pathname === '/favicon.ico' ||
     pathname === '/sitemap.xml' ||
     pathname === '/robots.txt' ||
+    pathname === '/ads.txt' ||
     PUBLIC_FILE.test(pathname)
   ) {
     return NextResponse.next();
@@ -54,5 +55,5 @@ export function proxy(request: NextRequest) {
  * 미들웨어가 스캔할 경로 범위 설정 (시스템 및 정적 자산 영역은 사전 완전 배제)
  */
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico|sitemap.xml|robots.txt).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico|sitemap.xml|robots.txt|ads.txt).*)'],
 };

@@ -46,7 +46,7 @@ export default async function ArchivePage({ params }: PageProps) {
       <Link href={`/${lang}`} className="text-sm font-semibold text-[#176d68] underline underline-offset-4">← 홈으로</Link>
       <header className="mt-8 border-b border-[#d8e1dd] pb-8">
         <h1 className="text-3xl font-bold text-[#17313a] md:text-4xl">전체 글</h1>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-[#5b7076]">환자 안내와 연구 검토 글을 발행일 순서로 확인할 수 있습니다. 모든 글에는 참고 자료와 편집 검토일을 표시합니다.</p>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-[#5b7076]">검사 기록, 진료 준비, 약·식사, 투석과 이식 관련 환자 안내를 발행일 순서로 확인할 수 있습니다. 모든 글에는 참고 자료, 작성 과정과 자료 검토일을 표시합니다.</p>
       </header>
 
       <div className="mt-9 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

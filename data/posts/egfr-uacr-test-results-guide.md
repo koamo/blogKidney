@@ -8,7 +8,8 @@ slug: "egfr-uacr-test-results-guide"
 status: "published"
 content_type: "patient-guide"
 editorial_value: "검사표의 두 핵심 지표를 한 화면에서 비교하고, 단일 결과로 진단을 단정하지 않도록 재검사와 추세 확인 질문을 정리했습니다."
-reviewed_by: "KidneyLife 자료 편집부"
+creation_note: "공식 기관 자료를 바탕으로 AI 보조 초안을 만든 뒤, 개인 운영자가 원문과 대조하고 구조·수치·표현을 재작성했습니다. 의료인의 의학 감수는 받지 않았습니다."
+reviewed_by: "KidneyLife 운영자"
 reviewed_at: "2026-07-18"
 source_name: "NIDDK"
 source_title: "Chronic Kidney Disease Tests & Diagnosis"
@@ -56,6 +57,8 @@ UACR 결과가 검사표에 없고 단순 소변 단백 또는 시험지 검사�
 인터넷의 단계표는 검사 결과를 이해하는 출발점일 뿐 개인의 진단서가 아닙니다. 만성 여부는 일정 기간 지속된 변화와 다른 손상 표지, 원인 질환, 영상검사 등을 종합해 판단합니다. 수치가 걱정돼도 처방약을 중단하거나 물·단백질·칼륨 섭취량을 스스로 크게 바꾸면 안 됩니다.
 
 평소와 다른 부종, 소변량 변화, 숨참, 심한 구토 같은 증상이 있거나 검사기관에서 빠른 진료를 안내했다면 온라인 정보보다 의료진의 지시를 우선해야 합니다.
+
+[검사 결과 추세표](/ko/resources#test-trend)에 검사 날짜, 수치와 당시 변화를 함께 적어 진료 때 보여줄 수 있습니다.
 
 ## 참고 자료
 

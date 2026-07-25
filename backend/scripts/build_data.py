@@ -101,6 +101,7 @@ def build_blog_data():
             "status": status,
             "contentType": metadata.get("content_type", ""),
             "editorialValue": metadata.get("editorial_value", ""),
+            "creationNote": metadata.get("creation_note", ""),
             "sourceName": metadata.get("source_name", ""),
             "sourceTitle": metadata.get("source_title", ""),
             "sourceUrl": metadata.get("source_url", ""),

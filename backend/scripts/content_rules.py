@@ -4,13 +4,14 @@ from datetime import date, datetime
 from urllib.parse import urlparse
 
 
-PUBLICATION_SCHEMA_VERSION = 3
+PUBLICATION_SCHEMA_VERSION = 4
 VALID_STATUSES = {"draft", "published", "rejected"}
 VALID_CONTENT_TYPES = {"patient-guide", "reviewed-research", "case-study", "reference"}
 REQUIRED_FIELDS = ("title", "date", "description", "tags", "thumbnail", "slug", "status")
-PUBLICATION_FIELDS = ("content_type", "editorial_value", "reviewed_by", "reviewed_at")
+PUBLICATION_FIELDS = ("content_type", "editorial_value", "creation_note", "reviewed_by", "reviewed_at")
 MIN_BODY_CHARS = 1200
 MIN_EDITORIAL_VALUE_CHARS = 30
+MIN_CREATION_NOTE_CHARS = 40
 
 
 def is_valid_url(value):
@@ -89,6 +90,12 @@ def validate_post(metadata, body):
     if editorial_value and len(re.sub(r"\s+", "", editorial_value)) < MIN_EDITORIAL_VALUE_CHARS:
         errors.append(
             f"editorial_value must explain the original contribution in at least {MIN_EDITORIAL_VALUE_CHARS} characters"
+        )
+
+    creation_note = str(metadata.get("creation_note", "")).strip()
+    if creation_note and len(re.sub(r"\s+", "", creation_note)) < MIN_CREATION_NOTE_CHARS:
+        errors.append(
+            f"creation_note must explain the writing and review process in at least {MIN_CREATION_NOTE_CHARS} characters"
         )
 
     if metadata.get("reviewed_at") and not is_iso_date(metadata.get("reviewed_at")):

@@ -8,7 +8,8 @@ slug: "dialysis-options-question-list"
 status: "published"
 content_type: "patient-guide"
 editorial_value: "투석 방식의 우열을 단정하지 않고 의료 조건과 생활 조건을 함께 상담할 수 있도록 공통 질문 12개와 기록 방법을 구성했습니다."
-reviewed_by: "KidneyLife 자료 편집부"
+creation_note: "공식 기관 자료를 바탕으로 AI 보조 초안을 만든 뒤, 개인 운영자가 원문과 대조하고 구조·수치·표현을 재작성했습니다. 의료인의 의학 감수는 받지 않았습니다."
+reviewed_by: "KidneyLife 운영자"
 reviewed_at: "2026-07-18"
 source_name: "NIDDK"
 source_title: "Choosing a Treatment for Kidney Failure"
@@ -68,6 +69,8 @@ generated_with: "AI-assisted draft; official-source and publication-rule check"
 치료 방식은 한 번 선택하면 어떤 상황에서도 바꿀 수 없는 계약이 아닙니다. 몸 상태, 통로 문제, 감염, 돌봄 여건과 생활 목표가 달라지면 의료진과 다시 평가할 수 있습니다. 현재 선택이 얼마나 오래 유지될지와 변경 시 준비 과정을 미리 물어두는 것도 도움이 됩니다.
 
 투석 시작 시점이나 방식은 eGFR 숫자 하나로 정하지 않습니다. 증상, 검사 결과, 합병증과 전반적인 상태를 의료진이 함께 판단합니다. 임의로 치료를 늦추거나 일정을 변경해서는 안 됩니다.
+
+상담 내용을 방법별로 나란히 적으려면 [투석 방법 상담 기록표](/ko/resources#dialysis-comparison)를 활용하세요.
 
 ## 참고 자료
 
