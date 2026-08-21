@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg2)"/>
+  
+  <text x="400" y="55" fill="#f0fdf4" font-size="24" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">신장 기능 단계별 4대 영양소(나트륨·칼륨·인·단백질) 조절 지침</text>
+  <text x="400" y="85" fill="#a7f3d0" font-size="14" text-anchor="middle" font-family="system-ui, sans-serif">개인별 사구체여과율(eGFR) 및 혈액 검사 수치 기준 맞춤 식단 가이드</text>
+
+  <!-- Card 1: 나트륨 -->
+  <g transform="translate(40, 120)">
+    <rect width="160" height="250" rx="14" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+    <circle cx="80" cy="45" r="24" fill="#10b981"/>
+    <text x="80" y="52" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">Na</text>
+    <text x="80" y="95" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">나트륨 (소금)</text>
+    <text x="80" y="125" fill="#a7f3d0" font-size="13" font-weight="bold" text-anchor="middle">일 2,000mg 미만</text>
+    <text x="80" y="145" fill="#d1fae5" font-size="12" text-anchor="middle">(소금 5g 이하)</text>
+    <line x1="20" y1="165" x2="140" y2="165" stroke="#34d399" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="80" y="190" fill="#ffffff" font-size="12" text-anchor="middle">혈압 조절 및 부종 예방</text>
+    <text x="80" y="215" fill="#ffffff" font-size="12" text-anchor="middle">국물·가공식품 섭취 제한</text>
+  </g>
+
+  <!-- Card 2: 단백질 -->
+  <g transform="translate(225, 120)">
+    <rect width="160" height="250" rx="14" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+    <circle cx="80" cy="45" r="24" fill="#059669"/>
+    <text x="80" y="52" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">Pro</text>
+    <text x="80" y="95" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">단백질</text>
+    <text x="80" y="125" fill="#a7f3d0" font-size="13" font-weight="bold" text-anchor="middle">0.6 ~ 0.8g/kg</text>
+    <text x="80" y="145" fill="#d1fae5" font-size="12" text-anchor="middle">(투석 전 단계)</text>
+    <line x1="20" y1="165" x2="140" y2="165" stroke="#34d399" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="80" y="190" fill="#ffffff" font-size="12" text-anchor="middle">요독 생성 억제</text>
+    <text x="80" y="215" fill="#ffffff" font-size="12" text-anchor="middle">양질의 계란·살코기 선택</text>
+  </g>
+
+  <!-- Card 3: 칼륨 -->
+  <g transform="translate(410, 120)">
+    <rect width="160" height="250" rx="14" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+    <circle cx="80" cy="45" r="24" fill="#10b981"/>
+    <text x="80" y="52" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">K</text>
+    <text x="80" y="95" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">칼륨 (포타슘)</text>
+    <text x="80" y="125" fill="#a7f3d0" font-size="13" font-weight="bold" text-anchor="middle">고칼륨혈증 조절</text>
+    <text x="80" y="145" fill="#d1fae5" font-size="12" text-anchor="middle">(수치 5.0mEq/L 기준)</text>
+    <line x1="20" y1="165" x2="140" y2="165" stroke="#34d399" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="80" y="190" fill="#ffffff" font-size="12" text-anchor="middle">채소 데쳐서 섭취</text>
+    <text x="80" y="215" fill="#ffffff" font-size="12" text-anchor="middle">고칼륨 과일(바나나) 주의</text>
+  </g>
+
+  <!-- Card 4: 인 -->
+  <g transform="translate(595, 120)">
+    <rect width="160" height="250" rx="14" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+    <circle cx="80" cy="45" r="24" fill="#059669"/>
+    <text x="80" y="52" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">P</text>
+    <text x="80" y="95" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">인 (Phosphorus)</text>
+    <text x="80" y="125" fill="#a7f3d0" font-size="13" font-weight="bold" text-anchor="middle">800 ~ 1,000mg</text>
+    <text x="80" y="145" fill="#d1fae5" font-size="12" text-anchor="middle">(뼈 건강 및 가려움 방지)</text>
+    <line x1="20" y1="165" x2="140" y2="165" stroke="#34d399" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="80" y="190" fill="#ffffff" font-size="12" text-anchor="middle">유제품·유기인 제한</text>
+    <text x="80" y="215" fill="#ffffff" font-size="12" text-anchor="middle">필요 시 인결합제 복용</text>
+  </g>
+
+  <text x="400" y="415" fill="#a7f3d0" font-size="13" text-anchor="middle" font-family="system-ui, sans-serif">※ 혈액 검사 수치(혈청 칼륨·인·부갑상선 호르몬)에 따라 임상영양사 식사 상담을 받으세요.</text>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#581c87"/>
+      <stop offset="100%" stop-color="#3b0764"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg7)"/>
+  
+  <text x="400" y="55" fill="#faf5ff" font-size="24" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">건강검진 단백뇨·혈뇨 소변검사 결과 해석 가이드</text>
+  <text x="400" y="85" fill="#e9d5ff" font-size="14" text-anchor="middle" font-family="system-ui, sans-serif">시험지봉(Dipstick) 검사 양성 반응 시 정밀 검사 진행 절차</text>
+
+  <!-- Left: 단백뇨 -->
+  <g transform="translate(60, 120)">
+    <rect width="320" height="250" rx="14" fill="#6b21a8" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="160" y="35" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">🧪 단백뇨 (Proteinuria) 판정</text>
+    <line x1="20" y1="50" x2="300" y2="50" stroke="#c084fc" stroke-opacity="0.4" stroke-width="1"/>
+
+    <text x="35" y="85" fill="#f3e8ff" font-size="13" font-weight="bold">• 시험지 반응: Trace(위양성), 1+ ~ 4+</text>
+    <text x="35" y="115" fill="#f3e8ff" font-size="13" font-weight="bold">• 정밀 검사: PCR (소변 단백/크레아티닌 비)</text>
+    <text x="35" y="145" fill="#f3e8ff" font-size="13" font-weight="bold">• 미세알부민뇨: UACR (30~300 mg/g)</text>
+
+    <text x="35" y="185" fill="#f5d0fe" font-size="12">• 발열·심한 운동 후 일시적 기립성 단백뇨 구별</text>
+    <text x="35" y="210" fill="#f5d0fe" font-size="12">• 지속적 단백뇨는 사구체 손상의 핵심 지표</text>
+  </g>
+
+  <!-- Right: 혈뇨 -->
+  <g transform="translate(420, 120)">
+    <rect width="320" height="250" rx="14" fill="#6b21a8" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="160" y="35" fill="#ffffff" font-size="18" font-weight="bold" text-anchor="middle">🔬 혈뇨 (Hematuria) 판정</text>
+    <line x1="20" y1="50" x2="300" y2="50" stroke="#c084fc" stroke-opacity="0.4" stroke-width="1"/>
+
+    <text x="35" y="85" fill="#f3e8ff" font-size="13" font-weight="bold">• 현미경적 혈뇨 vs 육안적 혈뇨 구별</text>
+    <text x="35" y="115" fill="#f3e8ff" font-size="13" font-weight="bold">• 적혈구 변형 검사 (Dysmorphic RBC)</text>
+    <text x="35" y="145" fill="#f3e8ff" font-size="13" font-weight="bold">• 비뇨의학과 vs 신장내과 원인 감별</text>
+
+    <text x="35" y="185" fill="#f5d0fe" font-size="12">• 변형 적혈구 관찰 시 사구체신염 가능성</text>
+    <text x="35" y="210" fill="#f5d0fe" font-size="12">• 균일 적혈구는 결석·방광염·종양 가능성</text>
+  </g>
+
+  <text x="400" y="415" fill="#e9d5ff" font-size="13" text-anchor="middle" font-family="system-ui, sans-serif">※ 검진에서 단백뇨·혈뇨 재검 소견을 받으셨다면 신장내과 정밀 검사를 받으세요.</text>
+</svg>

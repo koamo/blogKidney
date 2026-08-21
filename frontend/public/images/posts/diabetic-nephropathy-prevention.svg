@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#831843"/>
+      <stop offset="100%" stop-color="#500724"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg8)"/>
+  
+  <text x="400" y="55" fill="#fce7f3" font-size="24" font-weight="bold" text-anchor="middle" font-family="system-ui, sans-serif">당뇨병성 신증(합병증) 조기 예방 4대 목표 수치 지침</text>
+  <text x="400" y="85" fill="#fbcfe8" font-size="14" text-anchor="middle" font-family="system-ui, sans-serif">미세알부민뇨 정기 검진 및 사구체 보호 전략</text>
+
+  <!-- Box 1 -->
+  <g transform="translate(60, 120)">
+    <rect width="320" height="110" rx="12" fill="#9d174d" stroke="#f472b6" stroke-width="1.5"/>
+    <text x="25" y="35" fill="#ffffff" font-size="16" font-weight="bold">1. 당화혈색소 (HbA1c) 목표</text>
+    <text x="25" y="65" fill="#fce7f3" font-size="13">• 당화혈색소 6.5% ~ 7.0% 이하 조절</text>
+    <text x="25" y="88" fill="#fbcfe8" font-size="12">• 고혈당에 의한 사구체 모세혈관 손상 방지</text>
+  </g>
+
+  <!-- Box 2 -->
+  <g transform="translate(420, 120)">
+    <rect width="320" height="110" rx="12" fill="#9d174d" stroke="#f472b6" stroke-width="1.5"/>
+    <text x="25" y="35" fill="#ffffff" font-size="16" font-weight="bold">2. 엄격한 혈압 (BP) 조절</text>
+    <text x="25" y="65" fill="#fce7f3" font-size="13">• 목표 혈압 130 / 80 mmHg 이하</text>
+    <text x="25" y="88" fill="#fbcfe8" font-size="12">• 단백뇨 수반 시 120/80 mmHg 미만 권장</text>
+  </g>
+
+  <!-- Box 3 -->
+  <g transform="translate(60, 250)">
+    <rect width="320" height="110" rx="12" fill="#9d174d" stroke="#f472b6" stroke-width="1.5"/>
+    <text x="25" y="35" fill="#ffffff" font-size="16" font-weight="bold">3. 미세알부민뇨 (UACR) 연 1회 검사</text>
+    <text x="25" y="65" fill="#fce7f3" font-size="13">• 일반 소변검사로 안 나오는 미세 알부민 포착</text>
+    <text x="25" y="88" fill="#fbcfe8" font-size="12">• 30~300 mg/g 소견 시 초기 신증 진단</text>
+  </g>
+
+  <!-- Box 4 -->
+  <g transform="translate(420, 250)">
+    <rect width="320" height="110" rx="12" fill="#9d174d" stroke="#f472b6" stroke-width="1.5"/>
+    <text x="25" y="35" fill="#ffffff" font-size="16" font-weight="bold">4. 신장 보호 약제(ACEi/ARB/SGLT2i) 고려</text>
+    <text x="25" y="65" fill="#fce7f3" font-size="13">• 사구체 내압을 낮추고 단백뇨 감소 효과</text>
+    <text x="25" y="88" fill="#fbcfe8" font-size="12">• 전문의 처방에 의한 신기능 지연 치료</text>
+  </g>
+
+  <text x="400" y="415" fill="#fbcfe8" font-size="13" text-anchor="middle" font-family="system-ui, sans-serif">※ 당뇨 진단 시점부터 매년 콩팥 기능 검사를 반드시 받아야 합니다.</text>
+</svg>
